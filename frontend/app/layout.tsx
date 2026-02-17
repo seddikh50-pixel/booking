@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import "./globals.css";
 
 import { Cairo } from 'next/font/google'
+import Header from "./components/header/Header";
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: Props) {
       <body
         className={`$ ${cairo.className} antialiased`}
       >
+        <Header/>
         {children}
       </body>
     </html>
