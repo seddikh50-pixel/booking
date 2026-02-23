@@ -1,16 +1,15 @@
+// src/index.ts
+import { adminAuth } from '../admin-auth/auth.ts'; // لاحظ .ts هنا
+
 import express from "express";
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import cors from "cors";
+import bodyParser from "body-parser";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+app.get("/", (req, res) => res.send("Hello, World!"));
+app.post("/api/login", adminAuth);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.listen(5000, () => console.log("Server running on port 5000"));

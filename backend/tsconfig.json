@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "ES2020",
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": false
+    "esModuleInterop": true
   }
 }

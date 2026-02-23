@@ -10,7 +10,7 @@ const Header = () => {
   console.log({path})
   const links = [
     { name: "الرئيسية", href: "/" },
-    { name: "قائمة الأطباء", href: "/alldoctors" },
+    { name: "قائمة الأطباء", href: "/doctors" },
     { name: "نبذة عنا", href: "/about" },
     { name: "تواصل معنا", href: "/contact" },
   ];
@@ -38,7 +38,7 @@ const Header = () => {
             )}
           </Link>
         ))}
-        <Link href={"/admin"} className='text-sm text-gray-800 border  px-4 py-1 rounded-2xl border-gray-300'> صفحة الأدمين</Link>
+        <Link href={"/admin-panel"} className='text-sm text-gray-800 border  px-4 py-1 rounded-2xl border-gray-300'> صفحة الأدمين</Link>
       </div>
       <div>
         <Link href={"/login"} className='text-sm text-white bg-primary px-6 py-1 rounded-2xl'>تسجيل الدخول</Link>

@@ -33,7 +33,7 @@ const FindBy = () => {
 
 
     return (
-        <div className='mt-10 mb-50'>
+        <div className='mt-10'>
             <Container>
                 <h1 className='text-4xl font-bold text-center text-gray-600'>ابحث حسب التخصص </h1>
                 <div className='text-lg text-center mt-2 flex justify-center items-center '>
@@ -44,7 +44,7 @@ const FindBy = () => {
 
                 <div className='flex justify-center items-center gap-10'>
                     {listSpecialties.map((item, index) => (
-                        <div key={index} className='flex items-center gap-4 mt-6 flex-col'>
+                        <div key={index} className='flex items-center gap-4 mt-6 flex-col hover:-translate-y-2 cursor-pointer transition-all duration-500 '>
             
                             <div className='relative w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center'>
                                 <Image fill src={item.image} alt={item.name} className='w-16 h-16 object-contain' />

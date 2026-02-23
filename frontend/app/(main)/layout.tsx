@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactNode } from "react";
-import "./globals.css";
+import "../globals.css";
 
 import { Cairo } from 'next/font/google'
-import Header from "./components/header/Header";
+import Header from "../components/header/Header";
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -22,10 +22,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="ar" dir="rtl" >
+    <html lang="ar" dir="rtl"  >
       <body
         className={`$ ${cairo.className} antialiased`}
       >
+        <Header/>
         {children}
       </body>
     </html>
