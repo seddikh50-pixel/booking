@@ -1,0 +1,26 @@
+import express from "express"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const verifyAdmin = async (req: express.Request, res: express.Response) => {
+  try {
+    const token = await req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ success: false });
+    }
+
+    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET)
+    if (!verifyToken) {
+      return res.status(401).json({ msg: "غير مصرح" });
+    }
+
+    return res.status(200).json({ success: true, msg: "مرحبًا بك أيها الأدمن" });
+
+  } catch (error) {
+    return res.status(401).json({ success: false });
+
+  }
+
+} 

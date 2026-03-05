@@ -23,9 +23,7 @@ export const metadata = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="ar" dir="rtl" >
-      <body
-        className={`$ ${cairo.className} antialiased`}
-      >
+     <body className={`${cairo.className} antialiased`}>
         {children}
       </body>
     </html>

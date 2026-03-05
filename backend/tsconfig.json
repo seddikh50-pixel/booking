@@ -1,9 +1,21 @@
+// {
+//   "compilerOptions": {
+//     "allowImportingTsExtensions": true,
+//     "noEmit": true,
+//     "module": "NodeNext",
+//     "moduleResolution": "NodeNext",
+//     "target": "ES2020",
+//     "esModuleInterop": true
+//   }
+// }
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES2020",
-    "esModuleInterop": true
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0"
   }
 }
