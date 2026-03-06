@@ -1,11 +1,33 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
 const page = () => {
+
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
+      const [name, setName] = useState("");
+      const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const res = await fetch("http://localhost:4444/api/user-register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password, name }),
+          credentials: "include",
+    
+        });
+        const data = await res.json();
+        console.log(data)
+        
+      };
+    
     return (
         <div>
-            <div className='flex items-center justify-center w-full h-screen shadow-2xl flex-col '>
+            <div className='flex items-center justify-center w-full h-screen shadow-2xl flex-col  '>
 
-                <div className='w-96 border-1 h-90 rounded-lg border-gray-200 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col justify-center     items-center  '>
+                <div className='w-96 border-1 h-110 rounded-lg border-gray-200 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col justify-center   items-center  '>
+                    <h1 className='text-gray-500 text-3xl'>تسجيل حساب جديد</h1>
                     {/* <p className='font-bold text-2xl'>تسجيل دخول  <span className='text-primary '>{role ? "الإدارة" : "الطبيب"} </span></p> */}
                     <div className='flex flex-col gap-4 w-full justify-center items-center mt-5'>
                         <div className='flex flex-col gap-2 w-2/3'>

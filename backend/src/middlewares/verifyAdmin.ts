@@ -11,7 +11,7 @@ export const verifyAdmin = async (req: express.Request, res: express.Response) =
       return res.status(401).json({ success: false });
     }
 
-    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET)
+    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET as string);
     if (!verifyToken) {
       return res.status(401).json({ msg: "غير مصرح" });
     }

@@ -12,7 +12,7 @@ const Admin = () => {
     useEffect(() => {
         const checkAdmin = async () => {
             try {
-                const res = await fetch("http://localhost:4444/admin", {
+                const res = await fetch("http://localhost:4444/api/admin", {
                     method: "GET",
                     credentials: "include"
                 });

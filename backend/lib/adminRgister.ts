@@ -17,7 +17,7 @@ export const registerAdmin = () => {
        
 
 
-        const admin = await prisma.user.create({
+        await prisma.user.create({
             data: {
                 name: "Admin",
                 email: process.env.ADMIN_EMAIL!,

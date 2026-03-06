@@ -13,8 +13,6 @@ const Auth = ({ setIsAdmin }: AdminPanelProps) => {
   const [password, setPassword] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-
     const res = await fetch("http://localhost:4444/api/login", {
       method: "POST",
       headers: {

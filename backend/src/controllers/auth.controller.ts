@@ -2,8 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-import { prisma } from "../lib/prisma.ts";
-import { CLIENT_RENEG_LIMIT } from "node:tls";
+import { prisma } from "../../lib/prisma.ts";
 dotenv.config();
 
 export const adminAuth = async (req: express.Request, res: express.Response) => {
@@ -32,32 +31,3 @@ export const adminAuth = async (req: express.Request, res: express.Response) => 
   return res.status(200).json({ success: true, msg: "تم تسجيل الدخول بنجاح" })
 
 };
-
-
-
-
-
-
-
-// if (!email || !password) {
-//   return res.status(400).json({ success: false, msg: "يرى ادخال كلمة المرور والايميل " })
-// }
-// if (email === process.env.ADMN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-//   const token = jwt.sign({  email },
-//     process.env.JWT_SECRET as string,
-//     { "expiresIn": "1h" }
-//   )
-//   res.cookie("token", token, {
-//     httpOnly: true,
-//     secure: false, // true في production
-//     sameSite: "lax",
-//     maxAge: 7 * 24 * 60 * 60 * 1000,
-//   });
-
-//   return res.json({
-//     token, success: true
-//   })
-
-// }
-
-// return res.status(404).json({ success: false, msg: "البيانات غير صحيحة " })
