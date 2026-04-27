@@ -33,6 +33,8 @@
 // }
 
 import { ReactNode } from "react";
+import Header from "../../components/admin/Header";
+import Sidebar from "../../components/admin/Sidebar";
 
 type Props = {
   children: ReactNode;
@@ -41,7 +43,11 @@ type Props = {
 export default function AuthLayout({ children }: Props) {
   return (
     <div>
+      <Header />
+      <div className="flex">
+      <div className="w-60 bg-gray-300 h-[calc(100vh-4rem)]">    <Sidebar /></div>
       {children}
+      </div>
     </div>
   );
 }

@@ -7,7 +7,6 @@ export const registerAdmin = () => {
         const existingAdmin = await prisma.user.findFirst({
             where: { role: "ADMIN" },
         });
-          console.log(existingAdmin)
         if (existingAdmin) {
             console.log("Admin already exists");
             return;

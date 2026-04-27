@@ -7,17 +7,11 @@ dotenv.config();
 
 export const adminAuth = async (req: express.Request, res: express.Response) => {
   const { email, password } = req.body;
-  const existingAdmin = await prisma.user.findFirst({
-    where: { email, role: "ADMIN" },
-  })
-  if (!existingAdmin) {
+  console.log(email , password)
+  if (process.env.ADMIN_EMAIL !== email || process.env.ADMIN_PASSWORD !== password) {
     return res.status(404).json({ success: false, msg: "البيانات غير صحيحة " })
+  }
 
-  }
-  const isPasswordValid = bcrypt.compareSync(password, existingAdmin.password);
-  if (!isPasswordValid) {
-    return res.status(404).json({ success: false, msg: "البيانات غير صحيحة " })
-  }
   const token = jwt.sign({ email },
     process.env.JWT_SECRET as string,
     { "expiresIn": "1h" })

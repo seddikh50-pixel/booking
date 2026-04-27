@@ -7,8 +7,10 @@ dotenv.config();
 export const verifyAdmin = async (req: express.Request, res: express.Response) => {
   try {
     const token = await req.cookies.token;
+    console.log(token)
     if (!token) {
-      return res.status(401).json({ success: false });
+      console.log(token)
+      return res.status(401).json({ success: false , msg: "غير مصرح" });
     }
 
     const verifyToken = await jwt.verify(token, process.env.JWT_SECRET as string);
@@ -16,10 +18,10 @@ export const verifyAdmin = async (req: express.Request, res: express.Response) =
       return res.status(401).json({ msg: "غير مصرح" });
     }
 
-    return res.status(200).json({ success: true, msg: "مرحبًا بك أيها الأدمن" });
+    return res.status(200).json({ success: true, msg: "مرحبًا بك الأدمن" });
 
   } catch (error) {
-    return res.status(401).json({ success: false });
+    return res.status(401).json({ success: false , msg: "غير مصرح" });
 
   }
 

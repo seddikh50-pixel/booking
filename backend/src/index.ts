@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { registerAdmin } from '../lib/adminRgister.ts'; // تأكد من المسار الصحيح إلى adminRgister.ts
 import authRoutes from "./routes/auth.routes.ts"; // تأكد من المسار الصحيح إلى auth.routes.ts
+import userRoutes from "./routes/user.routes.ts"; // تأكد من المسار الصحيح إلى auth.routes.ts
+
 
 
 dotenv.config();
@@ -26,6 +28,7 @@ app.use(cors({
 }));
 
 app.use("/api", authRoutes);
+app.use("/api", userRoutes)
 
 
 

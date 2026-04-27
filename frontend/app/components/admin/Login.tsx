@@ -8,7 +8,7 @@ interface AdminPanelProps {
 
 
 const Auth = ({ setIsAdmin }: AdminPanelProps) => {
-  const [role, setrole] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,7 +33,7 @@ const Auth = ({ setIsAdmin }: AdminPanelProps) => {
     <div className='flex items-center justify-center w-full h-screen shadow-2xl flex-col '>
 
       <div className='w-96 border-1 h-90 rounded-lg border-gray-200 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col justify-center     items-center  '>
-        <p className='font-bold text-2xl'>تسجيل دخول  <span className='text-primary '>{role ? "الإدارة" : "الطبيب"} </span></p>
+        <p className='font-bold text-2xl'>تسجيل دخول  <span className='text-primary '> الادارة</span></p>
         <div className='flex flex-col gap-4 w-full justify-center items-center mt-5'>
           <div className='flex flex-col gap-2 w-2/3'>
             <label htmlFor="" className='text-gray-500'>أدخل الايميل</label>
@@ -49,7 +49,6 @@ const Auth = ({ setIsAdmin }: AdminPanelProps) => {
           </div>
 
           <button onClick={handleSubmit} className='bg-primary text-white px-4 py-2 rounded-md w-2/3'>دخول </button>
-          <p onClick={() => setrole(!role)} className='cursor-pointer'> الدخول كطبيب ؟  <span className='underline text-primary'>     اضغط هنا </span> </p>
         </div>
       </div>
 
