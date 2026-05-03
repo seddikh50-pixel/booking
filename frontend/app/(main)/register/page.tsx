@@ -1,0 +1,69 @@
+"use client"
+import React, { useState } from 'react'
+import Container from '../../components/Container'
+
+const page = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const res = await fetch("http://localhost:4444/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+            credentials: "include",
+        });
+        const data = await res.json();
+        console.log(data)
+    }
+    return (
+        <div>
+            <div className='flex items-center justify-center w-full h-screen shadow-2xl flex-col '>
+
+                <div className='w-96 border-1 py-5 rounded-lg border-gray-200 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col justify-center     items-center  '>
+                    <p className='font-bold text-2xl'>تسجيل حساب جديد</p>
+                    <div className='flex flex-col gap-4 w-full justify-center items-center mt-5'>
+                        <div className='flex flex-col gap-2 w-2/3'>
+                            <label htmlFor="" className='text-gray-500'> اسم المستخدم </label>
+                            <input value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className='border pr-5 border-gray-300 rounded-md py-1 ' type="text" />
+
+                        </div>
+                        <div className='flex flex-col w-2/3 gap-2'>
+                            <label htmlFor="" className='text-gray-500'> كلمة المرور</label>
+                            <input value={password}
+                                onChange={(e) => setPassword(e.target.value)} className='border border-gray-300 rounded-md py-1 ' type="password" />
+
+                        </div>
+
+                            <div className='flex flex-col w-2/3 gap-2'>
+                            <label htmlFor="" className='text-gray-500'> الايميل  </label>
+                            <input value={email}
+                                onChange={(e) => setEmail(e.target.value)} className='border border-gray-300 rounded-md py-1 ' type="email" />
+
+                        </div>
+                            <div className='flex flex-col w-2/3 gap-2'>
+                            <label htmlFor="" className='text-gray-500'> كلمة المرور</label>
+                            <input value={password}
+                                onChange={(e) => setPassword(e.target.value)} className='border border-gray-300 rounded-md py-1 ' type="password" />
+
+                        </div>
+
+                        <button onClick={handleSubmit} className='bg-primary text-white px-4 py-2 rounded-md w-2/3'>دخول </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    )
+}
+
+export default page

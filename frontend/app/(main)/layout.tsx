@@ -4,6 +4,8 @@ import "../globals.css";
 
 import { Cairo } from 'next/font/google'
 import Header from "../components/header/Header";
+import HeaderMainWrapper from "app/components/header/HeaderMainWrapper";
+
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -23,10 +25,8 @@ export const metadata = {
 export default function RootLayout({ children }: Props) {
   return (
     <>
-      <Header />
+      <HeaderMainWrapper />
       {children}
     </>
-
-
   );
 }

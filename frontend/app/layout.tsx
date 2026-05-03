@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
+import { ToastContainer } from "react-toastify"
+
 
 import { Cairo } from 'next/font/google'
 import Header from "./components/header/Header";
@@ -25,6 +27,7 @@ export default function RootLayout({ children }: Props) {
     <html lang="ar" dir="rtl" >
      <body className={`${cairo.className} antialiased`}>
         {children}
+        <ToastContainer />
       </body>
     </html>
   );

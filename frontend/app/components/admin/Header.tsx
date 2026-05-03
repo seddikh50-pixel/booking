@@ -1,11 +1,13 @@
 "use client"
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 
 interface AdminPanelProps {
   setIsAdmin?: (isAdmin: boolean) => void;
 }
 const Header = ({ setIsAdmin }: AdminPanelProps) => {
+  const router = useRouter();
 
 
   const signOut = async () => {
@@ -13,9 +15,11 @@ const Header = ({ setIsAdmin }: AdminPanelProps) => {
       method: "POST",
       credentials: "include"
     });
-
+    console.log(res)
     if (res.ok) {
       setIsAdmin?.(false);
+      router.push("/admin-panel/login")
+
     }
   }
   return (

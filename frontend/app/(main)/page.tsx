@@ -6,14 +6,18 @@ import TopFooter from "../components/footer/TopFooter";
 import SecondBanner from "../components/SecondBanner";
 
 
+
 export default function Home() {
   return (
     <div className="">
+      
       <Banner />
       <FindBy />
       <Doctors />
       <SecondBanner />
       <TopFooter />
+        
+
 
     </div>
   );

@@ -1,0 +1,91 @@
+'use client'
+import React, { useEffect, useState } from 'react'
+import Login from '../../../components/admin/Login'
+import { useRouter } from 'next/navigation';
+import { Spinner } from '@/components/ui/spinner';
+import { ToastContainer, toast } from 'react-toastify';
+
+const page = () => {
+  // const notify = () => toast("Wow so easy!");
+
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+
+
+    try {
+
+
+      e.preventDefault();
+      const res = await fetch("http://localhost:4444/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+
+      });
+      const data = await res.json();
+      console.log(data)
+
+      if (data.success) {
+
+        router.push("/admin-panel");
+        toast.success("تم تسجيل الدخول بنجاح");
+      } else {
+        toast.error("بيانات الدخول غير صحيحة. يرجى المحاولة مرة أخرى.");
+        return router.push("/admin-panel/login");
+      }
+
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast.error("An error occurred during login. Please try again.");
+
+    }
+
+
+
+  };
+
+
+
+
+
+  return (
+    <div className='w-full h-screen'>
+
+      <div className='flex items-center justify-center w-full h-screen shadow-2xl flex-col '>
+
+        <div className='w-96 border-1 h-90 rounded-lg border-gray-200 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col justify-center     items-center  '>
+          <p className='font-bold text-2xl'>تسجيل دخول  <span className='text-primary '> الادارة</span></p>
+          <div className='flex flex-col gap-4 w-full justify-center items-center mt-5'>
+            <div className='flex flex-col gap-2 w-2/3'>
+              <label htmlFor="" className='text-gray-500 '>أدخل الايميل </label>
+              <input value={email}
+                onChange={(e) => setEmail(e.target.value)} className='border border-gray-300 rounded-md py-1 pr-2 ' type="text" />
+
+            </div>
+            <div className='flex flex-col w-2/3 gap-2'>
+              <label htmlFor="" className='text-gray-500'>أدخل كلمة المرور</label>
+              <input value={password}
+                onChange={(e) => setPassword(e.target.value)} className='border border-gray-300 rounded-md py-1 pr-2 ' type="password" />
+
+            </div>
+
+            <button onClick={handleSubmit} className='bg-primary text-white px-4 py-2 rounded-md w-2/3'>دخول </button>
+            {/* <button onClick={notify}>sdfdsf</button> */}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
+export default page
+

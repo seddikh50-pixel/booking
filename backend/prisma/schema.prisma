@@ -2,26 +2,22 @@ generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
 }
+
 datasource db {
   provider = "postgresql"
 }
+
 //////////////////////////
 // ENUMS
 //////////////////////////
 
-model User {
-  id           Int        @id @default(autoincrement())
-  name         String
-  email        String     @unique
-  password     String
-  role         Role       @default(PATIENT)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+model Patient {
+  id       String  @id @default(uuid())
+  fullName String
+  email    String  @unique
+  phone    String?
 
-  // العلاقات
-  doctorProfile Doctor?      // إذا كان هذا المستخدم طبيب
-  appointments  Appointment[] // المواعيد التي حجزها المريض
-  reviews       Review[]      // تقييمات المريض
+  appointments Appointment[]
 }
 
 enum Role {
@@ -31,29 +27,51 @@ enum Role {
 }
 
 model Doctor {
-  id           Int        @id @default(autoincrement())
-  user         User       @relation(fields: [userId], references: [id])
-  userId       Int        @unique
-  specialty    String
-  bio          String?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id              String  @id @default(uuid())
+  fullName        String
+  email           String  @unique
+  phone           String?
+  password        String
+  specialization  String
+  bio             String?
+  experience      Int?
+  consultationFee Float?
+  image           String?
 
-  // العلاقات
+  // إضافات مفيدة
+  isAvailable Boolean @default(true)
+  rating      Float? // تقييم الطبيب
+  location    String? // العنوان
+
   appointments Appointment[]
-  reviews      Review[]
+  schedules    Schedule[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Schedule {
+  id        String @id @default(uuid())
+  dayOfWeek Int // 0 = الأحد ... 6 = السبت
+  startTime String // "09:00"
+  endTime   String // "17:00"
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
 }
 
 model Appointment {
-  id          Int       @id @default(autoincrement())
-  doctor      Doctor    @relation(fields: [doctorId], references: [id])
-  doctorId    Int
-  patient     User      @relation(fields: [patientId], references: [id])
-  patientId   Int
-  date        DateTime
-  status      Status    @default(PENDING)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id     String   @id @default(uuid())
+  date   DateTime
+  status String // pending, confirmed, cancelled
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 enum Status {
@@ -63,13 +81,19 @@ enum Status {
   COMPLETED
 }
 
-model Review {
-  id          Int       @id @default(autoincrement())
-  doctor      Doctor    @relation(fields: [doctorId], references: [id])
-  doctorId    Int
-  patient     User      @relation(fields: [patientId], references: [id])
-  patientId   Int
-  rating      Int       // 1-5
-  comment     String?
-  createdAt   DateTime  @default(now())
+// model Review {
+//   id          Int       @id @default(autoincrement())
+//   doctor      Doctor    @relation(fields: [doctorId], references: [id])
+//   doctorId    Int
+//   patient     Patient   @relation(fields: [patientId], references: [id])
+//   patientId   Int
+//   rating      Int       // 1-5
+//   comment     String?
+//   createdAt   DateTime  @default(now())
+// }
+
+model Specialties {
+  id    String @id @default(uuid())
+  name  String
+  image String
 }

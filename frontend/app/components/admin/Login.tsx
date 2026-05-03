@@ -38,7 +38,7 @@ const Auth = ({ setIsAdmin }: AdminPanelProps) => {
           <div className='flex flex-col gap-2 w-2/3'>
             <label htmlFor="" className='text-gray-500'>أدخل الايميل</label>
             <input value={email}
-              onChange={(e) => setEmail(e.target.value)} className='border border-gray-300 rounded-md py-1 ' type="text" />
+              onChange={(e) => setEmail(e.target.value)} className='border pr-5 border-gray-300 rounded-md py-1 ' type="text" />
 
           </div>
           <div className='flex flex-col w-2/3 gap-2'>
@@ -51,6 +51,8 @@ const Auth = ({ setIsAdmin }: AdminPanelProps) => {
           <button onClick={handleSubmit} className='bg-primary text-white px-4 py-2 rounded-md w-2/3'>دخول </button>
         </div>
       </div>
+
+
 
     </div>
   )

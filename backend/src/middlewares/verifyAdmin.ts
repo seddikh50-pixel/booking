@@ -9,7 +9,7 @@ export const verifyAdmin = async (req: express.Request, res: express.Response) =
     const token = await req.cookies.token;
     console.log(token)
     if (!token) {
-      console.log(token)
+      console.log({token})
       return res.status(401).json({ success: false , msg: "غير مصرح" });
     }
 
