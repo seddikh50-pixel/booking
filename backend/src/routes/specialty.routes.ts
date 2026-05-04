@@ -1,9 +1,10 @@
 import express from "express";
 import { create } from "node:domain";
-import { addDoctor } from "../controllers/doctor.controller.ts";
+import { addSpecialty } from "../controllers/specialty.controller.ts";
 
 
 const router = express.Router();
-router.post("/doctor/add", addDoctor);
+
+router.post("/specialty/add", addSpecialty);
 
 export default router;

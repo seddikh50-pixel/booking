@@ -3,23 +3,20 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
-
-// interface DoctorFormData {
-//   fullName: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-//   specialization: string;
-//   bio: string;
-//   experience: number | '';
-//   consultationFee: number | '';
-//   location: string;
-//   isAvailable: boolean;
-//   checked: boolean;
-// }
-
+type FormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  specialization: string;
+  bio: string;
+  experience: string;
+  consultationFee: string;
+  location: string;
+  isAvailable: boolean;
+};
 const page = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
     phone: '',
@@ -36,7 +33,8 @@ const page = () => {
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const selectedFile = e.target.files?.[0];
+    console.log(e.target)
+    const selectedFile = (e.target as HTMLInputElement).files?.[0];
     if (selectedFile) {
       const image = URL.createObjectURL(selectedFile)
       setPreview(image)
@@ -221,8 +219,8 @@ const page = () => {
                   }} size={20} className='text-gray-300' />
                 </div>
               }
-              <label className=' mb-2 relative border h-40 w-40 rounded-sm block' htmlFor="image">
-                <Image src={preview} fill alt='' />
+              <label className=' mb-2 relative border cursor-pointer overflow-hidden  h-40 w-40 rounded-sm block' htmlFor="image">
+                <Image src={preview} className='object-cover' fill alt='' />
               </label>
               <input
                 id="image"

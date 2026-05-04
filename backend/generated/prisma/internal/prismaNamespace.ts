@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Patient: 'Patient',
   Doctor: 'Doctor',
+  Specialties: 'Specialties',
   Schedule: 'Schedule',
   Appointment: 'Appointment'
 } as const
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "patient" | "doctor" | "schedule" | "appointment"
+    modelProps: "patient" | "doctor" | "specialties" | "schedule" | "appointment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -552,6 +553,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DoctorCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DoctorCountAggregateOutputType> | number
+        }
+      }
+    }
+    Specialties: {
+      payload: Prisma.$SpecialtiesPayload<ExtArgs>
+      fields: Prisma.SpecialtiesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SpecialtiesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SpecialtiesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        findFirst: {
+          args: Prisma.SpecialtiesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SpecialtiesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        findMany: {
+          args: Prisma.SpecialtiesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>[]
+        }
+        create: {
+          args: Prisma.SpecialtiesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        createMany: {
+          args: Prisma.SpecialtiesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SpecialtiesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>[]
+        }
+        delete: {
+          args: Prisma.SpecialtiesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        update: {
+          args: Prisma.SpecialtiesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        deleteMany: {
+          args: Prisma.SpecialtiesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SpecialtiesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SpecialtiesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>[]
+        }
+        upsert: {
+          args: Prisma.SpecialtiesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpecialtiesPayload>
+        }
+        aggregate: {
+          args: Prisma.SpecialtiesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSpecialties>
+        }
+        groupBy: {
+          args: Prisma.SpecialtiesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SpecialtiesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SpecialtiesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SpecialtiesCountAggregateOutputType> | number
         }
       }
     }
@@ -773,6 +848,15 @@ export const DoctorScalarFieldEnum = {
 export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
 
 
+export const SpecialtiesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  image: 'image'
+} as const
+
+export type SpecialtiesScalarFieldEnum = (typeof SpecialtiesScalarFieldEnum)[keyof typeof SpecialtiesScalarFieldEnum]
+
+
 export const ScheduleScalarFieldEnum = {
   id: 'id',
   dayOfWeek: 'dayOfWeek',
@@ -985,6 +1069,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   patient?: Prisma.PatientOmit
   doctor?: Prisma.DoctorOmit
+  specialties?: Prisma.SpecialtiesOmit
   schedule?: Prisma.ScheduleOmit
   appointment?: Prisma.AppointmentOmit
 }

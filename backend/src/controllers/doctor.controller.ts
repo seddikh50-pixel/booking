@@ -6,7 +6,6 @@ import { prisma } from "../../lib/prisma.ts";
 export const addDoctor = async (req: express.Request, res: express.Response) => {
     try {
         const { fullName, email, password, bio, phone, specialization, image, experience, consultationFee, location, isAvailable } = req.body;
-        console.log(fullName, email, password, bio, phone, specialization,  image, parseInt(experience), consultationFee, location, isAvailable)
         const existingDoctor = await prisma.doctor.findUnique({
             where: {
                 email: email

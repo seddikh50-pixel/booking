@@ -8,6 +8,8 @@ import jwt from "jsonwebtoken";
 import authRoutes from "./routes/auth.routes.ts"; // تأكد من المسار الصحيح إلى auth.routes.ts
 import userRoutes from "./routes/user.routes.ts"; // تأكد من المسار الصحيح إلى auth.routes.ts
 import doctorRoutes from "./routes/doctor.routes.ts"; // تأكد من المسار الصحيح إلى doctor.routes.ts
+import specialtyRoutes from "./routes/specialty.routes.ts"; // تأكد من المسار الصحيح إلى doctor.routes.ts
+
 
 
 
@@ -30,22 +32,11 @@ app.use(cors({
   credentials: true
 }));
 
-app.get("/test", (req, res) => {
-  return res.json({ ok: true });
-});
-
-app.get("/hawdja", (req, res) => {
-  return res.json({ ok: true });
-});
-
-app.get("/", (req, res) => res.send("Hello! seddik dddddddddddddddd"));
-app.get("/seddik", (req, res) => res.send("Hello! seddik   fffff"));
-
-
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes)
 app.use("/api", doctorRoutes)
+app.use("/api", specialtyRoutes)
 
 
 
