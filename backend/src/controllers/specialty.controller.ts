@@ -11,7 +11,6 @@ export const addSpecialty = async (req: express.Request, res: express.Response) 
                 name: name
             }
         })
-        console.log({ existingSpecialty })
 
 
         if (existingSpecialty) {
@@ -28,9 +27,6 @@ export const addSpecialty = async (req: express.Request, res: express.Response) 
         return res.status(200).json({ success: true, msg: "  تم اضافة التخصص بنجاح  ", specialty: addSpecialty })
 
 
-
-
-
     } catch (error) {
         console.error(error);
 
@@ -42,7 +38,10 @@ export const addSpecialty = async (req: express.Request, res: express.Response) 
 
     }
 
+}
 
 
-
+export const getAllSpecialties = async (req: express.Request, res: express.Response) => {
+    const specialties = await prisma.specialties.findMany()
+    return res.status(200).json({ success: true, specialties: specialties })
 }

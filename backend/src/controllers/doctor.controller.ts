@@ -3,6 +3,9 @@ import { prisma } from "../../lib/prisma.ts";
 
 
 
+
+// add a  doctors //////////////////////////////////////////////////
+
 export const addDoctor = async (req: express.Request, res: express.Response) => {
     try {
         const { fullName, email, password, bio, phone, specialization, image, experience, consultationFee, location, isAvailable } = req.body;
@@ -41,8 +44,25 @@ export const addDoctor = async (req: express.Request, res: express.Response) => 
         });
 
     }
+}
 
 
 
+// get all doctors //////////////////////////////////////////////////
 
+
+export const getAllDoctors = async (req: express.Request, res: express.Response) => {
+    try {
+        const doctors = await prisma.doctor.findMany()
+        return res.status(200).json({ success: true, doctors: doctors })
+    } catch (error) {
+
+         return res.status(500).json({
+            success: false,
+            msg: "خطأ في السيرفر",
+            error: error instanceof Error ? error.message : error
+        });
+
+
+    }
 }

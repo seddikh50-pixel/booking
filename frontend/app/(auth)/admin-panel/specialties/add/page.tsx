@@ -27,9 +27,7 @@ const page = () => {
                 credentials: "include",
 
             });
-            console.log(res)
             const data = await res.json();
-            console.log(data)
             if (data.success) return toast.success(data.msg)
             else {
                 toast.error(data.msg)
@@ -57,6 +55,8 @@ const page = () => {
         }))
 
     }
+
+    
     return (
         <div className='pt-20 pr-62' >
             <form onSubmit={handelSubmit}>
