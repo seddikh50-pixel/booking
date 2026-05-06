@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 
 interface Doctors {
@@ -12,6 +13,7 @@ interface Doctors {
     consultationFee: string;
     location: string;
     isAvailable: boolean;
+    image : string
 
 }
 
@@ -26,6 +28,7 @@ const Doctors = ({doctors} : Props) => {
             return (
                 <div key={doc.id}>
                     <h1>{doc.fullName} </h1>
+                          <Image width={100} height={100} alt='' src={"http://res.cloudinary.com/dwb8qhsjj/image/upload/v1778020850/lwddknuq5sl1va6eylsh.png"} />
                 </div>
             )
         })}

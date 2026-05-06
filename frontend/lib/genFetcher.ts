@@ -18,7 +18,6 @@ async function request(endpoint: string) {
 // specialties
 export async function getSpecialties() {
   const data = await request("/specialty/specialties");
-  console.log(BASE_URL)
   return data.specialties;
 }
 

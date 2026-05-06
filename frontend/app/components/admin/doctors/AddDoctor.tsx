@@ -34,6 +34,8 @@ type Props = {
 
 const AddDoctor = ({ specialties }: Props) => {
 
+    const [file, setFile] = useState<File | null>(null)
+
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
         email: '',
@@ -50,12 +52,13 @@ const AddDoctor = ({ specialties }: Props) => {
     const [cancelImage, setCancelImage] = useState(false)
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement >) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const selectedFile = (e.target as HTMLInputElement).files?.[0];
         if (selectedFile) {
             const image = URL.createObjectURL(selectedFile)
             setPreview(image)
             setCancelImage(true)
+            setFile(selectedFile)
         }
         const { name, value, type } = e.target;
         setFormData(prev => ({
@@ -66,22 +69,29 @@ const AddDoctor = ({ specialties }: Props) => {
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault();
         try {
+            const form = new FormData();
+            Object.entries(formData).map(([key, value]) =>
+                form.append(key, String(value))
+            )
 
-            e.preventDefault();
+            if (file) {
+                form.append("image", file)
+            }
+           
             const res = await fetch("http://localhost:4444/api/doctor/add", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
+                body: form,
                 credentials: "include",
 
             });
             const data = await res.json();
+            console.log(data)
             if (data.success) return toast.success(data.msg)
             else {
                 toast.error(data.msg)
+                toast.error(data.errors.bio._errors)
             }
 
 
@@ -154,13 +164,13 @@ const AddDoctor = ({ specialties }: Props) => {
 
                         {/* الاختصاص */}
                         <div>
-                            <select onChange={handleChange} 
+                            <select onChange={handleChange}
                                 id="specialization"
                                 name="specialization">
-                                     <option value="">اختر التخصص</option>
+                                <option value="">اختر التخصص</option>
                                 {specialties.map((sp) => {
                                     return (
-                                        <option key={sp.id}  value={sp.id}>{sp.name} </option>
+                                        <option key={sp.id} value={sp.id}>{sp.name} </option>
                                     )
                                 })}
                             </select>

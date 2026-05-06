@@ -7,7 +7,6 @@ dotenv.config();
 
 export const adminAuth = async (req: express.Request, res: express.Response) => {
   const { email, password } = req.body;
-  console.log(email , password)
   if (process.env.ADMIN_EMAIL !== email || process.env.ADMIN_PASSWORD !== password) {
     return res.status(404).json({ success: false, msg: "البيانات غير صحيحة " })
   }
