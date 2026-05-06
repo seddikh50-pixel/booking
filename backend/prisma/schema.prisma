@@ -32,16 +32,19 @@ model Doctor {
   email           String  @unique
   phone           String?
   password        String
-  specialization  String
+
+  // ❗ بدل string
+  specializationId String
+  specialization   Specialties @relation(fields: [specializationId], references: [id])
+
   bio             String?
   experience      Int?
   consultationFee Float?
   image           String?
 
-  // إضافات مفيدة
   isAvailable Boolean @default(true)
-  rating      Float? // تقييم الطبيب
-  location    String? // العنوان
+  rating      Float?
+  location    String?
 
   appointments Appointment[]
   schedules    Schedule[]
@@ -54,8 +57,9 @@ model Specialties {
   id    String @id @default(uuid())
   name  String @unique
   image String
-}
 
+  doctors Doctor[] // 🔥 relation عكسية
+}
 
 model Schedule {
   id        String @id @default(uuid())

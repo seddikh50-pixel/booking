@@ -1,4 +1,5 @@
 "use client"
+import { Switch } from '@/components/ui/switch'
 import { CirclePlus, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -53,6 +54,7 @@ const AddDoctor = ({ specialties }: Props) => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        console.log(e.target)
         const selectedFile = (e.target as HTMLInputElement).files?.[0];
         if (selectedFile) {
             const image = URL.createObjectURL(selectedFile)
@@ -60,44 +62,46 @@ const AddDoctor = ({ specialties }: Props) => {
             setCancelImage(true)
             setFile(selectedFile)
         }
-        const { name, value, type } = e.target;
+        const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+            [name]:  value
         }));
     }
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-         e.preventDefault();
-        try {
-            const form = new FormData();
-            Object.entries(formData).map(([key, value]) =>
-                form.append(key, String(value))
-            )
+         e.preventDefault();    
+        console.log(formData)
+        // e.preventDefault();
+        // try {
+        //     const form = new FormData();
+        //     Object.entries(formData).map(([key, value]) =>
+        //         form.append(key, String(value))
+        //     )
 
-            if (file) {
-                form.append("image", file)
-            }
-           
-            const res = await fetch("http://localhost:4444/api/doctor/add", {
-                method: "POST",
-                body: form,
-                credentials: "include",
+        //     if (file) {
+        //         form.append("image", file)
+        //     }
 
-            });
-            const data = await res.json();
-            console.log(data)
-            if (data.success) return toast.success(data.msg)
-            else {
-                toast.error(data.msg)
-                toast.error(data.errors.bio._errors)
-            }
+        //     const res = await fetch("http://localhost:4444/api/doctor/add", {
+        //         method: "POST",
+        //         body: form,
+        //         credentials: "include",
+
+        //     });
+        //     const data = await res.json();
+        //     console.log(data)
+        //     if (data.success) return toast.success(data.msg)
+        //     else {
+        //         toast.error(data.msg)
+        //         toast.error(data.errors.bio._errors)
+        //     }
 
 
-        } catch (error) {
-            console.log(error)
-        }
+        // } catch (error) {
+        //     console.log(error)
+        // }
 
     }
 
@@ -240,9 +244,18 @@ const AddDoctor = ({ specialties }: Props) => {
                         </div>
 
                         {/* متاح أو لا */}
-                        <div className="mb-5">
-                            <label className="mr-2">متاح للعمل</label>
-                            <input type="checkbox" name="isAvailable" defaultChecked onChange={handleChange} />
+                        <div className="mb-5 w-30 flex justify-between items-center   ">
+                            {/* <label className="mr-2">متاح للعمل</label>
+                            <input type="checkbox" name="isAvailable" defaultChecked onChange={handleChange} /> */}
+                            <label htmlFor="airplane-mode">  متاح للعمل </label>
+                            <Switch
+                                onCheckedChange={(checked) =>
+                                    setFormData({
+                                        ...formData,
+                                        isAvailable: checked
+                                    })}
+                                defaultChecked={formData.isAvailable} dir="ltr" id="airplane-mode" className="data-[state=checked]:bg-green-500  data-[state=unchecked]:bg-red-500" />
+
                         </div>
 
                         {/* الصورة */}

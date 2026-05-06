@@ -6,11 +6,12 @@ import React from 'react'
 
 const page = async() => {
   const doctors = await getDoctors()
+  console.log(doctors)
 
   return (
-    <div className='pt-20 pr-62'>
+    <div className='pt-20 pr-62 w-full'>
 
-      <Link href='/admin-panel/doctors/add' className='bg-green-600 text-white  py-1 cursor-pointer px-4 rounded-[2px] flex gap-2 '> <span>إضافة طبيب</span>  <CirclePlus /> </Link>
+      <Link href='/admin-panel/doctors/add' className='bg-green-600 text-white max-w-38  py-1 cursor-pointer px-4 rounded-[2px] flex gap-2 '> <span>إضافة طبيب</span>  <CirclePlus /> </Link>
       <Doctors doctors={doctors} />
 
     </div>

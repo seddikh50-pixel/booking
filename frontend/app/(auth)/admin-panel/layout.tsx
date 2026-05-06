@@ -29,7 +29,6 @@ export default function AuthLayout({ children }: Props) {
           credentials: "include"
         });
         const data = await res.json();
-        console.log(data)
 
         if (data.success) {
 

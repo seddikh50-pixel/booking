@@ -13,7 +13,6 @@ export const addDoctor = async (req: express.Request, res: express.Response) => 
 
     try {
         const parsed = doctorSchema.safeParse(req.body);
-        console.log({ parsed })
 
         if (!parsed.success) {
             let msg;
@@ -68,7 +67,7 @@ export const addDoctor = async (req: express.Request, res: express.Response) => 
                 password: data.password,
                 bio: data.bio,
                 phone: data.phone,
-                specialization: data.specialization,
+                specializationId: data.specialization,
                 image: result.secure_url,
                 experience: parseInt(data.experience),
                 consultationFee: parseInt(data.consultationFee),
@@ -97,16 +96,21 @@ export const addDoctor = async (req: express.Request, res: express.Response) => 
 
 export const getAllDoctors = async (req: express.Request, res: express.Response) => {
     try {
-        const doctors = await prisma.doctor.findMany()
-        return res.status(200).json({ success: true, doctors: doctors })
+        const doctors = await prisma.doctor.findMany({
+            include: {
+                specialization: true
+            }
+        });
+        
+return res.status(200).json({ success: true, doctors: doctors })
     } catch (error) {
 
-        return res.status(500).json({
-            success: false,
-            msg: "خطأ في السيرفر",
-            error: error instanceof Error ? error.message : error
-        });
+    return res.status(500).json({
+        success: false,
+        msg: "خطأ في السيرفر",
+        error: error instanceof Error ? error.message : error
+    });
 
 
-    }
+}
 }

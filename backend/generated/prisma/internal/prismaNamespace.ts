@@ -833,7 +833,7 @@ export const DoctorScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   password: 'password',
-  specialization: 'specialization',
+  specializationId: 'specializationId',
   bio: 'bio',
   experience: 'experience',
   consultationFee: 'consultationFee',
