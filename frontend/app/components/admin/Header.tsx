@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 
 interface AdminPanelProps {
@@ -15,11 +15,10 @@ const Header = ({ setIsAdmin }: AdminPanelProps) => {
       method: "POST",
       credentials: "include"
     });
-    console.log(res)
+    const data = await res.json()
+    console.log(res.ok)
     if (res.ok) {
-      setIsAdmin?.(false);
-      router.push("/admin-panel/login")
-
+      setIsAdmin?.(false)
     }
   }
   return (

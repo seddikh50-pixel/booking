@@ -6,6 +6,9 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+
 
 type FormData = {
     fullName: string;
@@ -54,7 +57,6 @@ const AddDoctor = ({ specialties }: Props) => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        console.log(e.target)
         const selectedFile = (e.target as HTMLInputElement).files?.[0];
         if (selectedFile) {
             const image = URL.createObjectURL(selectedFile)
@@ -65,43 +67,43 @@ const AddDoctor = ({ specialties }: Props) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]:  value
+            [name]: value
         }));
     }
 
 
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-         e.preventDefault();    
-        console.log(formData)
-        // e.preventDefault();
-        // try {
-        //     const form = new FormData();
-        //     Object.entries(formData).map(([key, value]) =>
-        //         form.append(key, String(value))
-        //     )
+        e.preventDefault();
+       
+        e.preventDefault();
+        try {
+            const form = new FormData();
+            Object.entries(formData).map(([key, value]) =>
+                form.append(key, String(value))
+            )
 
-        //     if (file) {
-        //         form.append("image", file)
-        //     }
+            if (file) {
+                form.append("image", file)
+            }
 
-        //     const res = await fetch("http://localhost:4444/api/doctor/add", {
-        //         method: "POST",
-        //         body: form,
-        //         credentials: "include",
+            const res = await fetch(`${API_URL}/doctor/add`, {
+                method: "POST",
+                body: form,
+                credentials: "include",
 
-        //     });
-        //     const data = await res.json();
-        //     console.log(data)
-        //     if (data.success) return toast.success(data.msg)
-        //     else {
-        //         toast.error(data.msg)
-        //         toast.error(data.errors.bio._errors)
-        //     }
+            });
+            const data = await res.json();
+            if (data.success) return toast.success(data.msg)
+            else {
+                toast.error(data.msg)
+                toast.error(data.errors.bio._errors)
+            }
 
 
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        } catch (error) {
+            console.log(error)
+        }
 
     }
 
@@ -179,14 +181,7 @@ const AddDoctor = ({ specialties }: Props) => {
                                 })}
                             </select>
                             <label htmlFor="specialization">الاختصاص</label>
-                            {/* <input
-                                onChange={handleChange}
-                                id="specialization"
-                                name="specialization"
-                                type="text"
-                                placeholder="مثال: طبيب أسنان"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            /> */}
+                    
                         </div>
                     </div>
 
@@ -245,8 +240,7 @@ const AddDoctor = ({ specialties }: Props) => {
 
                         {/* متاح أو لا */}
                         <div className="mb-5 w-30 flex justify-between items-center   ">
-                            {/* <label className="mr-2">متاح للعمل</label>
-                            <input type="checkbox" name="isAvailable" defaultChecked onChange={handleChange} /> */}
+               
                             <label htmlFor="airplane-mode">  متاح للعمل </label>
                             <Switch
                                 onCheckedChange={(checked) =>
@@ -254,7 +248,7 @@ const AddDoctor = ({ specialties }: Props) => {
                                         ...formData,
                                         isAvailable: checked
                                     })}
-                                defaultChecked={formData.isAvailable} dir="ltr" id="airplane-mode" className="data-[state=checked]:bg-green-500  data-[state=unchecked]:bg-red-500" />
+                                checked={formData.isAvailable} dir="ltr" id="airplane-mode" className="data-[state=checked]:bg-green-500  data-[state=unchecked]:bg-red-500" />
 
                         </div>
 

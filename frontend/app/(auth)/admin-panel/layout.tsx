@@ -1,58 +1,65 @@
+"use client";
 
-"use client"
-// import Sidebar from "app/components/admin/Sidebar"
-import Admin from "../../components/admin/Admin"
-// import Header from "app/components/admin/Header"
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { usePathname } from "next/navigation"
-
+import { useEffect, useState } from "react";
 import { ReactNode } from "react";
-import Header from "../../components/admin/Header";
-import Sidebar from "../../components/admin/Sidebar";
+
 import TopWrapper from "app/components/admin/TopWrapper";
-import SideWrapper from "app/components/admin/SideWrapper"
-import { ToastContainer } from "react-toastify"
+import SideWrapper from "app/components/admin/SideWrapper";
+import Login from "app/components/admin/Login";
+import { LoaderCircle } from "lucide-react";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function AuthLayout({ children }: Props) {
-  const router = useRouter();
-  useEffect(() => {
-    const checkAdmin = async () => {
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  useEffect(() => {
+    console.log(isAdmin)
+    const checkAdmin = async () => {
       try {
         const res = await fetch("http://localhost:4444/api/admin", {
           method: "GET",
-          credentials: "include"
+          credentials: "include",
         });
+
         const data = await res.json();
+       
 
         if (data.success) {
-
-          router.push("/admin-panel")
-
+          setIsAdmin(true);
         } else {
-          router.push("/admin-panel/login")
+          setIsAdmin(false);
         }
       } catch (err) {
-        router.push("/admin-panel/login")
+        setIsAdmin(false);
+      } finally {
+        setLoading(false);
       }
     };
 
     checkAdmin();
-  }, [])
+  }, []);
+
+  if (loading) {
+    return <div className="p-5 flex justify-center items-center h-screen w-screen"> <LoaderCircle color="green" size={50}/></div>;
+  }
 
   return (
     <div>
-      {/* <ToastContainer /> */}
-      <div className=""><TopWrapper /></div>
-      <div className="flex"> 
-        <SideWrapper />
-        {children}
-      </div>
+      {isAdmin ? (
+        <div>
+          <TopWrapper setIsAdmin={setIsAdmin} />
+          <div className="flex">
+            <SideWrapper />
+            {children}
+          </div>
+        </div>
+      ) : (
+        <Login setIsAdmin={setIsAdmin} />
+      )}
     </div>
   );
 }

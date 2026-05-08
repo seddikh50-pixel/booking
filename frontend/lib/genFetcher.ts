@@ -5,7 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 // generic fetch
 async function request(endpoint: string) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    next: { revalidate: 60 },
+    cache : 'no-store'
   });
 
   if (!res.ok) {

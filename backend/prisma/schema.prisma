@@ -61,6 +61,8 @@ model Specialties {
   doctors Doctor[] // 🔥 relation عكسية
 }
 
+
+
 model Schedule {
   id        String @id @default(uuid())
   dayOfWeek Int // 0 = الأحد ... 6 = السبت

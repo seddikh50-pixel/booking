@@ -41,7 +41,7 @@ const Header = () => {
             )}
           </Link>
         ))}
-        <Link href={"/admin-panel/login"} className='text-sm text-gray-800 border  px-4 py-1 rounded-2xl border-gray-300'> صفحة الأدمين</Link>
+        <Link href={"/admin-panel"} className='text-sm text-gray-800 border  px-4 py-1 rounded-2xl border-gray-300'> صفحة الأدمين</Link>
       </div>
       <div>
         <Link href={"/register"} className='text-sm text-white bg-primary px-6 py-1 rounded-2xl'>تسجيل الدخول</Link>
