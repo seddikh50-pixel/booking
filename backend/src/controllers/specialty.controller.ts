@@ -1,47 +1,41 @@
 import express from "express";
 import { prisma } from "../../lib/prisma.ts";
+import { asyncWrapper } from "../middlewares/asyncWrapper.ts";
+import AppError from "../../utils/apiError.ts";
 
 
 
-export const addSpecialty = async (req: express.Request, res: express.Response) => {
-    try {
-        const { name, image } = req.body
-        const existingSpecialty = await prisma.specialties.findUnique({
-            where: {
-                name: name
-            }
-        })
+export const addSpecialty = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
-
-        if (existingSpecialty) {
-            return res.status(400).json({ success: false, msg: "هذا التخصص موجود " })
+    const { name, image } = req.body
+    const existingSpecialty = await prisma.specialties.findUnique({
+        where: {
+            name: name
         }
-
-        const addSpecialty = await prisma.specialties.create({
-            data: {
-                name: name,
-                image: image
-            }
-        })
-
-        return res.status(200).json({ success: true, msg: "  تم اضافة التخصص بنجاح  ", specialty: addSpecialty })
+    })
 
 
-    } catch (error) {
-        console.error(error);
-
-        return res.status(500).json({
-            success: false,
-            msg: "خطأ في السيرفر",
-            error: error instanceof Error ? error.message : error
-        });
-
+    if (existingSpecialty) {
+        const error = new AppError("تم اضافة هذا التخصص من قبل", 404, false);
+        return next(error)
     }
 
-}
+    const addSpecialty = await prisma.specialties.create({
+        data: {
+            name: name,
+            image: image
+        }
+    })
+
+    return res.status(200).json({ success: true, msg: "  تم اضافة التخصص بنجاح  ", specialty: addSpecialty })
 
 
-export const getAllSpecialties = async (req: express.Request, res: express.Response) => {
+
+})
+
+
+export const getAllSpecialties = asyncWrapper(async (req: express.Request, res: express.Response) => {
     const specialties = await prisma.specialties.findMany()
     return res.status(200).json({ success: true, specialties: specialties })
 }
+)

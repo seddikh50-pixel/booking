@@ -239,7 +239,7 @@ const AddDoctor = ({ specialties }: Props) => {
                         </div>
 
                         {/* متاح أو لا */}
-                        <div className="mb-5 w-30 flex justify-between items-center   ">
+                        <div className="mb-5 w-30 flex justify-between items-center    ">
                
                             <label htmlFor="airplane-mode">  متاح للعمل </label>
                             <Switch
@@ -248,12 +248,12 @@ const AddDoctor = ({ specialties }: Props) => {
                                         ...formData,
                                         isAvailable: checked
                                     })}
-                                checked={formData.isAvailable} dir="ltr" id="airplane-mode" className="data-[state=checked]:bg-green-500  data-[state=unchecked]:bg-red-500" />
+                                checked={formData.isAvailable} dir="ltr" id="airplane-mode" className="data-[state=checked]:bg-green-700 cursor-pointer   data-[state=unchecked]:bg-gray-500" />
 
                         </div>
 
                         {/* الصورة */}
-                        <div className='relative mb-10 '>
+                        <div className='relative mb-10  '>
                             {cancelImage &&
                                 <div className='absolute right-1 top-1 z-1'>
                                     <X onClick={() => {
@@ -280,7 +280,7 @@ const AddDoctor = ({ specialties }: Props) => {
                 </div>
                 <button
                     type="submit"
-                    className="bg-green-600 text-white py-2 px-4 rounded-lg w-full"
+                    className="bg-green-600 text-white py-2 px-4 rounded-lg w-full cursor-pointer"
                 >
                     إضافة طبيب
                 </button>

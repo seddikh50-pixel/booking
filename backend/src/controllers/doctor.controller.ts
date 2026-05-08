@@ -11,7 +11,7 @@ import AppError from "../../utils/apiError.ts";
 
 // add a  doctors //////////////////////////////////////////////////
 
-export const addDoctor = asyncWrapper(async (req: express.Request, res: express.Response) => {
+export const addDoctor = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
 
     const parsed = doctorSchema.safeParse(req.body);
@@ -25,10 +25,8 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
             msg = parsed.error.issues[0].message
         }
 
-        return res.status(400).json({
-            success: false,
-            msg: msg
-        });
+        const error = new AppError(msg, 404, false);
+        return next(error)
     }
 
 
@@ -36,9 +34,23 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
 
     const file = req.file;
 
+    const existingDoctor = await prisma.doctor.findUnique({
+        where: {
+            email: data.email
+        }
+    })
+
+
+
+    if (existingDoctor) {
+        const error = new AppError("تم اضافة هذا الطبيب من قبل", 404, false);
+        return next(error)
+    }
+
 
     if (!file) {
-        return res.status(400).json({ msg: "No image" });
+        const error = new AppError("تعذر تحميل الصورة", 404, false);
+        return next(error)
     }
 
     // 1. تحويل الصورة
@@ -51,17 +63,7 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
     const result = await cloudinary.uploader.upload(dataURI);
 
 
-    const existingDoctor = await prisma.doctor.findUnique({
-        where: {
-            email: data.email
-        }
-    })
 
-
-
-    if (existingDoctor) {
-        return res.status(404).json({ success: false, msg: "هذا الطبيب موجود " })
-    }
     const newDoctor = await prisma.doctor.create({
         data: {
             fullName: data.fullName,
@@ -107,12 +109,13 @@ export const getAllDoctors = asyncWrapper(async (req: express.Request, res: expr
 })
 
 
-export const changeDoctorStatus = asyncWrapper(async (req: express.Request, res: express.Response) => {
+export const changeDoctorStatus = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { doctorId, isAvailable } = await req.body
 
     const changeStatus = await prisma.doctor.update({ where: { id: doctorId }, data: { isAvailable: isAvailable } })
     if (!changeStatus) {
-        return res.status(401).json({ success: false, msg: "يوجد خلل" })
+        const error = new AppError("يوجد خلل", 404, false);
+        return next(error)
 
     }
 
@@ -134,7 +137,7 @@ export const deleteDoctor = asyncWrapper(async (req: express.Request, res: expre
     });
 
     if (!doctor) {
-        const error = new AppError("الطبيب لا يوجد ", 404, false);
+        const error = new AppError("تعذر لحذف الطبيب", 404, false);
         return next(error)
 
     }

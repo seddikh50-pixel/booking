@@ -7,7 +7,7 @@ dotenv.config();
 export const verifyAdmin = async (req: express.Request, res: express.Response) => {
   try {
     const token = await req.cookies.token;
-    console.log({token})
+   
     if (!token) {
       
       return res.status(401).json({ success: false , msg: "غير مصرح" });
