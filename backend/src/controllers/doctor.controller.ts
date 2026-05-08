@@ -126,23 +126,26 @@ export const changeDoctorStatus = asyncWrapper(async (req: express.Request, res:
 
 
 
-    export const deleteDoctor = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        const { doctorId } =  req.body
-         const error = new AppError("الطبيب لا يوجد ", 404, false);
-         console.log({error})
+export const deleteDoctor = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { doctorId } = req.body
 
-        const deletedDoctor = await prisma.doctor.delete({
-            where: { id: `${doctorId}5` }
-        })
-        
-    
+    const doctor = await prisma.doctor.findUnique({
+        where: { id: `${doctorId}5` }
+    });
 
-        if (!deletedDoctor) {
-            const error = new AppError("الطبيب لا يوجد ", 404, false);
-            return next(error)
-    
-        }
-        return res.status(200).json({ success: true, msg: "تم حذف الطبيب بنجاح " })
+    if (!doctor) {
+        const error = new AppError("الطبيب لا يوجد ", 404, false);
+        return next(error)
 
+    }
 
+    const deletedDoctor = await prisma.doctor.delete({
+        where: { id: `${doctorId}5` }
     })
+
+
+
+    return res.status(200).json({ success: true, msg: "تم حذف الطبيب بنجاح " })
+
+
+})
