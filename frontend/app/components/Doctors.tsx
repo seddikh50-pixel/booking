@@ -41,18 +41,18 @@ const Doctors = async () => {
           <p className=' w-120 text-gray-600 rounded-md p-4'>
             نحن نقدم لك قائمة شاملة من الأطباء المتخصصين في مختلف المجالات الطبية
           </p>
-          <div className='grid grid-cols-6 w-full gap-5'>
+          <div className='grid grid-cols-6 w-full gap-5 '>
             {doctors.map((doc: Doctors) => {
               return (
-                <div className='w-full border-green-300 border-[1px] rounded-sm overflow-hidden text-right  ' key={doc.id} >
+                <div className='w-full border-green-300 border-[1px] rounded-sm overflow-hidden text-right pb-3 hover:-translate-y-2 transition-all duration-500 cursor-pointer  ' key={doc.id} >
                   <div className='relative w-full h-70 bg-green-100'>
                     <Image src={doc.image} fill alt='' className='object-cover' />
                   </div>
                   <div className='flex justify-start pr-4  pt-2'>
 
                     {doc.isAvailable ?
-                      <p className='flex justify-center items-center gap-2'><CircleSmall fill='#00a803' size={12} color='#00a803' /><h1 className='text-[#00a803] text-sm font-bold'>يعمل </h1> </p> :
-                      <p>  <CircleSmall fill='00a803' size={12} color='black' /><h2 className='text-sm'> لا يعمل </h2></p>}
+                      <div className='flex justify-center items-center gap-2'><CircleSmall fill='#00a803' size={12} color='#00a803' /><h1 className='text-[#00a803] text-sm font-bold'>يعمل </h1> </div> :
+                      <div className='flex justify-center items-center gap-2'>  <CircleSmall fill='red' size={12} color='red' /><h2 className='text-sm text-red-700 font-bold'> لا يعمل </h2></div>}
                   </div>
                   <div className='pr-4'>
                     <h1 className='font-bold'> د. {doc.fullName} </h1>

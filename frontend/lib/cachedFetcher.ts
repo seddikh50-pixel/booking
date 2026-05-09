@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 async function request(endpoint: string) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     next: {
-      revalidate: 120, // 👈 كل 120 ثانية (2 دقائق)
+      revalidate: 240, // 👈 كل 120 ثانية (2 دقائق)
     },
   });
 

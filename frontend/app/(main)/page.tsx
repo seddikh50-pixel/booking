@@ -11,11 +11,11 @@ export default function Home() {
   return (
     <div className="">
       
-      <Banner />
+      {/* <Banner />
       <FindBy />
       <Doctors />
       <SecondBanner />
-      <TopFooter />
+      <TopFooter /> */}
         
 
 

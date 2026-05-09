@@ -86,7 +86,7 @@
 }
 
 .flexy {
-  @apply flex justify-between items-center gap-2;
+  @apply flex justify-between items-center ;
 
 }
 

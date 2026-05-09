@@ -15,6 +15,7 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
 
 
     const parsed = doctorSchema.safeParse(req.body);
+    console.log(parsed)
 
     if (!parsed.success) {
         let msg;
@@ -76,10 +77,11 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
             experience: parseInt(data.experience),
             consultationFee: parseInt(data.consultationFee),
             location: data.location,
-            isAvailable: data.isAvailable === "true" || data.isAvailable === true
+            isAvailable: data.isAvailable === "true" ? true : false
 
         }
     })
+    console.log(newDoctor)
     return res.status(200).json({ success: true, msg: 'تم اضافة طبيب بنجاح ', doctor: newDoctor })
 
 })
@@ -131,9 +133,10 @@ export const changeDoctorStatus = asyncWrapper(async (req: express.Request, res:
 
 export const deleteDoctor = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { doctorId } = req.body
+    
 
     const doctor = await prisma.doctor.findUnique({
-        where: { id: `${doctorId}5` }
+        where: { id: doctorId }
     });
 
     if (!doctor) {
@@ -143,7 +146,7 @@ export const deleteDoctor = asyncWrapper(async (req: express.Request, res: expre
     }
 
     const deletedDoctor = await prisma.doctor.delete({
-        where: { id: `${doctorId}5` }
+        where: { id: `${doctorId}` }
     })
 
 
