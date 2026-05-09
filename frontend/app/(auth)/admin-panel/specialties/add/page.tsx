@@ -6,24 +6,25 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
 const page = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        image: ""
-    })
+    const [name, setName] = useState("")
     const [preview, setPreview] = useState('/specialty.jpg')
     const [cancelImage, setCancelImage] = useState(false)
+    const [file, setFile] = useState<File | null>(null);
 
     const handelSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
         try {
-            console.log("sending")
+            const form = new FormData();
+            form.append("name" ,name)
+            if(file){
+                form.append('image' , file)
+            }
+            console.log(form)
+            
             e.preventDefault()
             const res = await fetch("http://localhost:4444/api/specialty/add", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
+                body: form,
                 credentials: "include",
 
             });
@@ -45,15 +46,11 @@ const page = () => {
             const image = URL.createObjectURL(imageFile)
             setPreview(image)
             setCancelImage(true)
+            setFile(imageFile)
 
         }
 
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-
-        }))
-
+        
     }
 
     
@@ -63,12 +60,13 @@ const page = () => {
                 <div>
                     <label htmlFor="name" className=''>التخصص </label>
                     <input
-                        onChange={handleChange}
+                        onChange={(e)=> setName(e.target.value)}
                         id="name"
                         name="name"
                         type="text"
                         placeholder="الاسم الكامل"
                         className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full mt-2"
+                        
                     />
                 </div>
 

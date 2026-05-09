@@ -92,12 +92,8 @@ const Doctors = ({ doctors }: Props) => {
         })
       
         const data  = await res.json()
-        console.log(data)
-        // if (!res.ok) {
-        //     router.refresh()
-        //     throw new Error('خطأ في الحذف ')
 
-        // }
+      
         if(data.success){
               setAllDoctors((prev) =>
             prev.filter((d) =>

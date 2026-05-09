@@ -49,7 +49,7 @@ const Header = () => {
         <Link href={"/admin-panel"} className='2xl:text-sm xl:text-sm lg:text-sm md:text-xs text-gray-800 border  px-4 py-1 rounded-2xl border-gray-300'> صفحة الأدمين</Link>
       </div>
       <div className=' flex '>
-        <Link href={"/register"} className=' whitespace-nowrap 2xl:text-lg py-1 px-2 bg-green-600 rounded-[2px] text-white xl:text-sm lg:text-sm md:text-xs sm:text-xs text-xs'>تسجيل الدخول</Link>
+        <Link href={"/register"} className=' whitespace-nowrap 2xl:text-lg py-1 px-2 bg-primary rounded-[2px] text-white xl:text-sm lg:text-sm md:text-xs sm:text-xs text-xs'>تسجيل الدخول</Link>
       </div>
       <div ref={barRef} className='2xl:hidden xl:hidden lg:hidden  md:hidden block cursor-pointer' onClick={() => setViewListMobile(true)}>
         <Logs size={30} />

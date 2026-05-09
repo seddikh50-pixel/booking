@@ -1,3 +1,4 @@
+import { getSpecialties } from "lib/cachedFetcher";
 import Banner from "../components/Banner";
 
 import Doctors from "../components/Doctors";
@@ -7,16 +8,18 @@ import SecondBanner from "../components/SecondBanner";
 
 
 
-export default function Home() {
+export default async function Home () {
+  const specialties = await getSpecialties()
+  console.log(specialties)
   return (
     <div className="">
       
-      {/* <Banner />
-      <FindBy />
-      <Doctors />
+      <Banner />
+      <FindBy specialties={specialties} />
+      {/* <Doctors />
       <SecondBanner />
-      <TopFooter /> */}
-        
+      <TopFooter />
+         */}
 
 
     </div>
