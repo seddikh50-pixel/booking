@@ -17,7 +17,6 @@ export default function AuthLayout({ children }: Props) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log(isAdmin)
     const checkAdmin = async () => {
       try {
         const res = await fetch("http://localhost:4444/api/admin", {

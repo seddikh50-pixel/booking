@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image';
 import React, { useState } from 'react'
+
 import {
     Table,
     TableBody,
@@ -10,8 +11,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Switch } from '@/components/ui/switch'
-import { redirect, useRouter } from 'next/navigation';
+
+import DoctorRow from './DoctorRow';
+import { useRouter } from 'next/navigation';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -44,6 +46,7 @@ type Props = {
 }
 
 const Doctors = ({ doctors }: Props) => {
+    console.log(doctors)
     const [allDoctors, setAllDoctors] = useState<Doctors[]>(doctors)
     // const [isAvailable, setIsAvailable] = useState<Doctors[]>(doctors)
 
@@ -63,19 +66,24 @@ const Doctors = ({ doctors }: Props) => {
             })
         })
         const data = await res.json();
+        console.log(data)
         if (!res.ok) {
             router.refresh()
             throw new Error('خطأ في الحذف ')
 
         }
-        setAllDoctors((prev) =>
-            prev.map((d) =>
-                d.id === docId ?
-                    { ...d, isAvailable: checked } :
-                    d
+
+        if (data.success) {
+            setAllDoctors((prev) =>
+                prev.map((d) =>
+                    d.id === docId ?
+                        { ...d, isAvailable: checked } :
+                        d
+                )
             )
-        )
-        console.log(allDoctors)
+
+        }
+
 
     }
 
@@ -90,15 +98,15 @@ const Doctors = ({ doctors }: Props) => {
                 doctorId: docId
             })
         })
-      
-        const data  = await res.json()
 
-      
-        if(data.success){
-              setAllDoctors((prev) =>
-            prev.filter((d) =>
-                d.id !== docId
-            ))
+        const data = await res.json()
+
+
+        if (data.success) {
+            setAllDoctors((prev) =>
+                prev.filter((d) =>
+                    d.id !== docId
+                ))
         }
     }
     return (
@@ -124,24 +132,8 @@ const Doctors = ({ doctors }: Props) => {
 
                     {allDoctors.map((doc) => {
                         return (
-                            <TableRow key={doc.id} className=''>
-                                <TableCell className="font-medium "><Image width={70} height={50} alt='' src={doc.image} /></TableCell>
-                                <TableCell className="font-medium">{doc.fullName}</TableCell>
-                                <TableCell>{doc.specialization.name} </TableCell>
-                                <TableCell>{doc.experience} </TableCell>
-                                <TableCell>{doc.location} </TableCell>
-                                <TableCell>{doc.isAvailable ? <h1 className='bg-green-200 text-green-800 py-1 w-20 flex justify-center items-center rounded-[2px] '>متاح</h1> : <h1 className='bg-red-200 py-1 rounded-[2px] text-red-800 w-20 flex justify-center items-center  '>غير متاح</h1>} </TableCell>
-                                <TableCell className='  ' >
-                                    <div className="mb-5 w-30 flex justify-between items-center mt-4 ">
-                                        <Switch
-                                            defaultChecked={doc.isAvailable} onCheckedChange={(checked) => changeStatus(checked, doc.id)} dir="ltr" id="airplane-mode" className={"data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-red-500"} />
-                                    </div>
-                                </TableCell>
-                                <TableCell className='' >
-                                    <button className='bg-red-500 ml-2 rounded-[2px] text-white px-2 py-1' onClick={() => deleteDoctor(doc.id)}>حذف الطبيب</button>
-                                    <button className='bg-green-500 rounded-[2px]  text-white px-2 py-1'>تعديل  الطبيب</button>
-                                </TableCell>
-                            </TableRow>
+                            <DoctorRow key={doc.id} doc={doc} deleteDoctor={deleteDoctor} changeStatus={changeStatus} />
+
                         )
                     })}
                 </TableBody>

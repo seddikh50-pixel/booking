@@ -6,14 +6,14 @@ import Link from 'next/link'
 const TopFooter = () => {
     return (
         <div>
-            <Container>
-                <div className='flex items-start justify-between gap-2 py-2'>
+            <Container className='px-10 pb-20'>
+                <div className='flex flex-col 2xl:flex-row xl:flex-row sm:flex-col lg:flex-row md:flex-col md:gap-10 sm:gap-7 gap-7  2xl:items-center xl:items-center lg    :items-center md:items-start sm:items-start items-start justify-between  py-2'>
                     <div className='flex flex-col gap-2 py-2'>
                         <div className='flexy max-w-20  '>
                             <Image src={"/site logo/medLogo.png"} alt='logo' width={50} height={50} className=' inline-block mr-2  ' />
                             <Link href={"/"} className='text-primary '>ميديكا</Link>
                         </div>
-                        <p className='max-w-120 text-gray-500' >موقعنا منصة إلكترونية متخصصة في حجز مواعيد الأطباء بكل سهولة وسرعة. يتيح للمستخدمين البحث عن الأطباء حسب التخصص، الموقع، أو التقييمات، مع إمكانية الاطلاع على معلومات الطبيب وساعات العمل وحجز الموعد إلكترونيًا في دقائق معدودة.</p>
+                        <p className='2xl:max-w-120 lg:max-w-120  xl:max-w-120 md:max-w-150 text-gray-500 2xl:text-lg xl:text-lg lg:text-lg  md:text-xl' >موقعنا منصة إلكترونية متخصصة في حجز مواعيد الأطباء بكل سهولة وسرعة. يتيح للمستخدمين البحث عن الأطباء حسب التخصص، الموقع، أو التقييمات، مع إمكانية الاطلاع على معلومات الطبيب وساعات العمل وحجز الموعد إلكترونيًا في دقائق معدودة.</p>
                     </div>
 
                     <div>

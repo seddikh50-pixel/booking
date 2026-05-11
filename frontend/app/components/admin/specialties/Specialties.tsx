@@ -3,6 +3,17 @@ import { CirclePlus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,6 +26,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from '@/components/ui/button';
 
 
 interface Specialties {
@@ -33,7 +45,6 @@ const Specialties = ({ specialties }: Props) => {
 
 
     const deleteSpecialty = async (spId: string) => {
-        console.log(spId)
         const res = await fetch(`${API_URL}/specialty/delete_specialty`, {
             method: "DELETE",
             headers: {
@@ -45,7 +56,6 @@ const Specialties = ({ specialties }: Props) => {
         })
 
         const data = await res.json()
-        console.log(data)
         if (data.success) {
             setAllSpecialties((prev) =>
                 prev.filter((s) =>
@@ -80,9 +90,28 @@ const Specialties = ({ specialties }: Props) => {
                             <TableRow key={sp.id} className=''>
                                 <TableCell className="font-medium "><Image width={70} height={50} alt='' src={sp.image} /></TableCell>
                                 <TableCell className="font-medium">{sp.name}</TableCell>
-                                <TableCell className='' >
-                                    <button className='bg-red-500 ml-2 rounded-[2px] text-white px-2 py-1' onClick={() => deleteSpecialty(sp.id)}>حذف الطبيب</button>
-                                    <button className='bg-green-500 rounded-[2px]  text-white px-2 py-1'>تعديل  الطبيب</button>
+                                <TableCell className=''  >
+                                    <AlertDialog   >
+                                        <AlertDialogTrigger asChild>
+                                            <Button className='ml-2 cursor-pointer ' variant="destructive">حذف التخصص </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>تحذف التخصص ؟</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    لا يمكن التراجع عن هذا الإجراء. سيؤدي ذلك إلى حذف العنصر نهائياً من القائمة.                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter className=''>
+                                                      <AlertDialogAction onClick={() => deleteSpecialty(sp.id)} className="!bg-red-500 cursor-pointer text-white hover:bg-destructive/90">
+                                                    حذف
+                                                </AlertDialogAction>
+                                                <AlertDialogCancel className='cursor-pointer'>الغاء</AlertDialogCancel>
+                                          
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                    {/* <button className='bg-red-500 ml-2 rounded-[2px] text-white px-2 py-1' onClick={() => deleteSpecialty(sp.id)}>حذف الطبيب</button> */}
+                                    <button className='bg-green-500 rounded-[2px]  text-white px-2 py-1'>تعديل  التخصص</button>
                                 </TableCell>
                             </TableRow>
                         )

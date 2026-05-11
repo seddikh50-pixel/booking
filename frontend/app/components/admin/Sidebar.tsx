@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { usePathname } from 'next/navigation'
 const Sidebar = () => {
- const path = usePathname()
+  const path = usePathname()
 
 
 
@@ -14,6 +14,7 @@ const Sidebar = () => {
     { name: 'الأطباء', href: '/admin-panel/doctors' },
     { name: 'المرضى', href: '/admin-panel/patients' },
     { name: 'التخصصات', href: '/admin-panel/specialties' },
+    { name: "أوقات العمل", href: "/admin-panel/schedules" }
   ]
   return (
     <div>
@@ -27,7 +28,7 @@ const Sidebar = () => {
             {link.name}
           </Link>
         ))}
-        
+
       </div>
     </div>
   )

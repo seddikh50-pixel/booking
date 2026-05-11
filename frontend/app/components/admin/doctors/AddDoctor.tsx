@@ -5,6 +5,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import {
+    Field,
+    FieldDescription,
+    FieldLabel,
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
+
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -57,6 +78,7 @@ const AddDoctor = ({ specialties }: Props) => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        console.log({ name: e.target.name })
         const selectedFile = (e.target as HTMLInputElement).files?.[0];
         if (selectedFile) {
             const image = URL.createObjectURL(selectedFile)
@@ -75,12 +97,15 @@ const AddDoctor = ({ specialties }: Props) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-       
+
         e.preventDefault();
         try {
+            console.log(formData)
             const form = new FormData();
             Object.entries(formData).map(([key, value]) =>
+
                 form.append(key, String(value))
+
             )
 
             if (file) {
@@ -117,130 +142,196 @@ const AddDoctor = ({ specialties }: Props) => {
                 {/* الاسم */}
                 <div className='flex gap-10 w-full '>
                     <div className='w-1/2 '>
-                        <div>
-                            <label htmlFor="fullName" className=''>الاسم الكامل</label>
-                            <input
-                                onChange={handleChange}
-                                id="fullName"
-                                name="fullName"
-                                type="text"
-                                placeholder="الاسم الكامل"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full mt-2"
-                            />
+                        <div className='mb-5'>
+                            <Field>
+                                <FieldLabel htmlFor="fullName">
+                                    الاسم الكامل
+                                </FieldLabel>
+
+                                <Input
+                                    onChange={handleChange}
+                                    id="fullName"
+                                    name="fullName"
+                                    type="text"
+                                    placeholder=" الاسم الكامل"
+                                    className=""
+                                />
+
+
+                            </Field>
                         </div>
 
                         {/* البريد */}
-                        <div>
-                            <label htmlFor="email">البريد الإلكتروني</label>
-                            <input
-                                onChange={handleChange}
-                                id="email"
-                                name="email"
-                                type="email"
-                                placeholder="email@example.com"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+
+                            <Field>
+                                <FieldLabel htmlFor="email">
+                                    البريد الإلكتروني
+                                </FieldLabel>
+
+                                <Input
+                                    onChange={handleChange}
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="email@example.com"
+                                    className=""
+                                />
+
+                                {/* <FieldDescription>
+                                    أدخل البريد الإلكتروني الخاص بك
+                                </FieldDescription> */}
+                            </Field>
                         </div>
 
                         {/* الهاتف */}
-                        <div>
-                            <label htmlFor="phone">الهاتف</label>
-                            <input
-                                onChange={handleChange}
-                                id="phone"
-                                name="phone"
-                                type="text"
-                                placeholder="رقم الهاتف"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+
+                            <Field>
+                                <FieldLabel htmlFor="phone">
+                                    رقم الهاتف
+                                </FieldLabel>
+
+                                <Input
+                                    onChange={handleChange}
+                                    id="phone"
+                                    name="phone"
+                                    type="text"
+                                    placeholder=" رقم الهاتف"
+                                    className=""
+                                />
+                                {/* 
+                                <FieldDescription>
+                                    أدخل الاسم الكامل
+                                </FieldDescription> */}
+                            </Field>
                         </div>
 
                         {/* كلمة المرور */}
-                        <div>
-                            <label htmlFor="password">كلمة المرور</label>
-                            <input
-                                onChange={handleChange}
-                                id="password"
-                                name="password"
-                                type="password"
-                                placeholder="********"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+
+                            <Field>
+                                <FieldLabel htmlFor="phone">
+                                    كلمة السر
+                                </FieldLabel>
+
+                                <Input
+                                    onChange={handleChange}
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    placeholder="كلمة السر "
+                                    className=""
+                                />
+
+                            </Field>
                         </div>
 
                         {/* الاختصاص */}
-                        <div>
-                            <select onChange={handleChange}
-                                id="specialization"
-                                name="specialization">
-                                <option value="">اختر التخصص</option>
-                                {specialties.map((sp) => {
-                                    return (
-                                        <option key={sp.id} value={sp.id}>{sp.name} </option>
-                                    )
-                                })}
-                            </select>
-                            <label htmlFor="specialization">الاختصاص</label>
-                    
+                        <div  >
+
+
+                            <Select dir='rtl'
+                                onValueChange={(value) =>
+                                    handleChange(
+                                        {
+                                            target: {
+                                                name: "specialization",
+                                                value
+                                            }
+                                        } as React.ChangeEvent<HTMLInputElement>
+                                    )}
+                            >
+                                <SelectTrigger className="w-full max-w-48">
+                                    <SelectValue placeholder="اختر التخصص" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>التخصصات</SelectLabel>
+
+
+                                        {specialties.map((sp) => {
+                                            return (
+                                                <SelectItem key={sp.id} value={sp.id}>{sp.name} </SelectItem>
+                                            )
+                                        })}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
 
                     <div className='w-1/2 '>
                         {/* السيرة */}
                         <div>
+
                             <label htmlFor="bio">السيرة</label>
-                            <textarea
+                            <Textarea
                                 onChange={handleChange}
                                 id="bio"
                                 name="bio"
-                                placeholder="نبذة عن الطبيب"
                                 className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            ></textarea>
+                                placeholder="نبذة عن الطبيب" />
                         </div>
 
                         {/* سنوات الخبرة */}
-                        <div>
-                            <label htmlFor="experience">سنوات الخبرة</label>
-                            <input
-                                onChange={handleChange}
-                                id="experience"
-                                name="experience"
-                                type="number"
-                                placeholder="5"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+                            <Field>
+                                <FieldLabel htmlFor="experience">
+                                    سنوات الخبرة
+                                </FieldLabel>
+
+                                <Input
+                                    onChange={handleChange}
+                                    id="experience"
+                                    name="experience"
+                                    type="number"
+                                    placeholder="5"
+                                    className=""
+                                />
+                            </Field>
                         </div>
 
                         {/* سعر الاستشارة */}
-                        <div>
-                            <label htmlFor="consultationFee">سعر الاستشارة</label>
-                            <input
-                                onChange={handleChange}
-                                id="consultationFee"
-                                name="consultationFee"
-                                type="number"
-                                step="0.01"
-                                placeholder="2000"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+                            <Field>
+                                <FieldLabel htmlFor="consultationFee">
+                                    سعر الاستشارة
+                                </FieldLabel>
+                                <Input
+                                    onChange={handleChange}
+                                    id="consultationFee"
+                                    name="consultationFee"
+                                    step="0.01"
+                                    type="number"
+                                    placeholder="2000"
+                                    className=""
+                                />
+                            </Field>
                         </div>
 
                         {/* الموقع */}
-                        <div>
-                            <label htmlFor="location">العنوان</label>
-                            <input
-                                onChange={handleChange}
-                                id="location"
-                                name="location"
-                                type="text"
-                                placeholder="المدينة / العيادة"
-                                className="block mb-5 border-gray-300 border-2 rounded-md py-1 px-4 w-full  mt-2"
-                            />
+                        <div className='mb-5'>
+                                        
+                                  <Field>
+                                <FieldLabel htmlFor="location">
+                                 العنوان
+                                </FieldLabel>
+                                <Input
+                                    onChange={handleChange}
+                                    id="location"
+                                    name="location"
+                                    step="0.01"
+                                    type="text"
+                                    placeholder="موقع الطبيب"
+                                    className=""
+                                />
+                            </Field>
                         </div>
 
                         {/* متاح أو لا */}
                         <div className="mb-5 w-30 flex justify-between items-center    ">
-               
+
                             <label htmlFor="airplane-mode">  متاح للعمل </label>
                             <Switch
                                 onCheckedChange={(checked) =>

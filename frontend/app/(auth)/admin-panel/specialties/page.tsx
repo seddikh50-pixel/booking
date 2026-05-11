@@ -11,9 +11,7 @@ const page = async () => {
 
   return (
     <div className='pt-20 pr-62 w-full'>
-      
       <Specialties specialties={specialties} /> 
-
     </div>
   )
 }
