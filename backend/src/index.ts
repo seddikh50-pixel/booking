@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.routes.ts";
 import userRoutes from "./routes/user.routes.ts";
 import doctorRoutes from "./routes/doctor.routes.ts";
 import specialtyRoutes from "./routes/specialty.routes.ts";
+import scheduleRoutes from "./routes/schedule.route.ts"
 
 
 
@@ -45,6 +46,7 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", doctorRoutes);
 app.use("/api", specialtyRoutes);
+app.use("/api", scheduleRoutes);
 
 
 app.post("/api/logout", (req, res) => {

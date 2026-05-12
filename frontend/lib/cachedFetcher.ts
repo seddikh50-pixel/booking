@@ -32,3 +32,10 @@ export async function getPatients() {
   const data = await request("/patients");
   return data.patients;
 }
+
+
+
+export async function getSchedules() {
+  const data = await request("/schedule/schedules");
+  return data.schedules;
+}

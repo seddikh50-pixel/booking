@@ -81,7 +81,6 @@ export const addDoctor = asyncWrapper(async (req: express.Request, res: express.
 
         }
     })
-    console.log(newDoctor)
     return res.status(200).json({ success: true, msg: 'تم اضافة طبيب بنجاح ', doctor: newDoctor })
 
 })
@@ -99,7 +98,8 @@ export const getAllDoctors = asyncWrapper(async (req: express.Request, res: expr
 
     const doctors = await prisma.doctor.findMany({
         include: {
-            specialization: true
+            specialization: true,
+            schedules : true
         },
         orderBy: {
             createdAt: "desc"

@@ -6,6 +6,7 @@ import React from 'react'
 
 const page = async() => {
   const doctors = await getDoctors()
+  console.log(doctors)
 
   return (
     <div className='pt-20 pr-62 w-full'>

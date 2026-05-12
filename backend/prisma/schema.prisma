@@ -27,11 +27,11 @@ enum Role {
 }
 
 model Doctor {
-  id              String  @id @default(uuid())
-  fullName        String
-  email           String  @unique
-  phone           String?
-  password        String
+  id       String  @id @default(uuid())
+  fullName String
+  email    String  @unique
+  phone    String?
+  password String
 
   // ❗ بدل string
   specializationId String
@@ -53,24 +53,31 @@ model Doctor {
   updatedAt DateTime @updatedAt
 }
 
+model Schedule {
+  id String @id @default(uuid())
+
+  dayOfWeek Int
+
+  // Morning Period
+  morningStart String?
+  morningEnd   String?
+
+  // Evening Period
+  eveningStart String?
+  eveningEnd   String?
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
 model Specialties {
   id    String @id @default(uuid())
   name  String @unique
   image String
 
   doctors Doctor[] // 🔥 relation عكسية
-}
-
-
-
-model Schedule {
-  id        String @id @default(uuid())
-  dayOfWeek Int // 0 = الأحد ... 6 = السبت
-  startTime String // "09:00"
-  endTime   String // "17:00"
-
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id])
 }
 
 model Appointment {

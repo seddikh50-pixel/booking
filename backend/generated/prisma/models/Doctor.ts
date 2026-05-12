@@ -597,6 +597,11 @@ export type DoctorSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
 }
 
+export type DoctorScalarRelationFilter = {
+  is?: Prisma.DoctorWhereInput
+  isNot?: Prisma.DoctorWhereInput
+}
+
 export type DoctorListRelationFilter = {
   every?: Prisma.DoctorWhereInput
   some?: Prisma.DoctorWhereInput
@@ -605,11 +610,6 @@ export type DoctorListRelationFilter = {
 
 export type DoctorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type DoctorScalarRelationFilter = {
-  is?: Prisma.DoctorWhereInput
-  isNot?: Prisma.DoctorWhereInput
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -634,6 +634,20 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type DoctorCreateNestedOneWithoutSchedulesInput = {
+  create?: Prisma.XOR<Prisma.DoctorCreateWithoutSchedulesInput, Prisma.DoctorUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutSchedulesInput
+  connect?: Prisma.DoctorWhereUniqueInput
+}
+
+export type DoctorUpdateOneRequiredWithoutSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.DoctorCreateWithoutSchedulesInput, Prisma.DoctorUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutSchedulesInput
+  upsert?: Prisma.DoctorUpsertWithoutSchedulesInput
+  connect?: Prisma.DoctorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutSchedulesInput, Prisma.DoctorUpdateWithoutSchedulesInput>, Prisma.DoctorUncheckedUpdateWithoutSchedulesInput>
 }
 
 export type DoctorCreateNestedManyWithoutSpecializationInput = {
@@ -678,20 +692,6 @@ export type DoctorUncheckedUpdateManyWithoutSpecializationNestedInput = {
   deleteMany?: Prisma.DoctorScalarWhereInput | Prisma.DoctorScalarWhereInput[]
 }
 
-export type DoctorCreateNestedOneWithoutSchedulesInput = {
-  create?: Prisma.XOR<Prisma.DoctorCreateWithoutSchedulesInput, Prisma.DoctorUncheckedCreateWithoutSchedulesInput>
-  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutSchedulesInput
-  connect?: Prisma.DoctorWhereUniqueInput
-}
-
-export type DoctorUpdateOneRequiredWithoutSchedulesNestedInput = {
-  create?: Prisma.XOR<Prisma.DoctorCreateWithoutSchedulesInput, Prisma.DoctorUncheckedCreateWithoutSchedulesInput>
-  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutSchedulesInput
-  upsert?: Prisma.DoctorUpsertWithoutSchedulesInput
-  connect?: Prisma.DoctorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutSchedulesInput, Prisma.DoctorUpdateWithoutSchedulesInput>, Prisma.DoctorUncheckedUpdateWithoutSchedulesInput>
-}
-
 export type DoctorCreateNestedOneWithoutAppointmentsInput = {
   create?: Prisma.XOR<Prisma.DoctorCreateWithoutAppointmentsInput, Prisma.DoctorUncheckedCreateWithoutAppointmentsInput>
   connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutAppointmentsInput
@@ -704,91 +704,6 @@ export type DoctorUpdateOneRequiredWithoutAppointmentsNestedInput = {
   upsert?: Prisma.DoctorUpsertWithoutAppointmentsInput
   connect?: Prisma.DoctorWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.DoctorUpdateWithoutAppointmentsInput>, Prisma.DoctorUncheckedUpdateWithoutAppointmentsInput>
-}
-
-export type DoctorCreateWithoutSpecializationInput = {
-  id?: string
-  fullName: string
-  email: string
-  phone?: string | null
-  password: string
-  bio?: string | null
-  experience?: number | null
-  consultationFee?: number | null
-  image?: string | null
-  isAvailable?: boolean
-  rating?: number | null
-  location?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutDoctorInput
-  schedules?: Prisma.ScheduleCreateNestedManyWithoutDoctorInput
-}
-
-export type DoctorUncheckedCreateWithoutSpecializationInput = {
-  id?: string
-  fullName: string
-  email: string
-  phone?: string | null
-  password: string
-  bio?: string | null
-  experience?: number | null
-  consultationFee?: number | null
-  image?: string | null
-  isAvailable?: boolean
-  rating?: number | null
-  location?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
-  schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutDoctorInput
-}
-
-export type DoctorCreateOrConnectWithoutSpecializationInput = {
-  where: Prisma.DoctorWhereUniqueInput
-  create: Prisma.XOR<Prisma.DoctorCreateWithoutSpecializationInput, Prisma.DoctorUncheckedCreateWithoutSpecializationInput>
-}
-
-export type DoctorCreateManySpecializationInputEnvelope = {
-  data: Prisma.DoctorCreateManySpecializationInput | Prisma.DoctorCreateManySpecializationInput[]
-  skipDuplicates?: boolean
-}
-
-export type DoctorUpsertWithWhereUniqueWithoutSpecializationInput = {
-  where: Prisma.DoctorWhereUniqueInput
-  update: Prisma.XOR<Prisma.DoctorUpdateWithoutSpecializationInput, Prisma.DoctorUncheckedUpdateWithoutSpecializationInput>
-  create: Prisma.XOR<Prisma.DoctorCreateWithoutSpecializationInput, Prisma.DoctorUncheckedCreateWithoutSpecializationInput>
-}
-
-export type DoctorUpdateWithWhereUniqueWithoutSpecializationInput = {
-  where: Prisma.DoctorWhereUniqueInput
-  data: Prisma.XOR<Prisma.DoctorUpdateWithoutSpecializationInput, Prisma.DoctorUncheckedUpdateWithoutSpecializationInput>
-}
-
-export type DoctorUpdateManyWithWhereWithoutSpecializationInput = {
-  where: Prisma.DoctorScalarWhereInput
-  data: Prisma.XOR<Prisma.DoctorUpdateManyMutationInput, Prisma.DoctorUncheckedUpdateManyWithoutSpecializationInput>
-}
-
-export type DoctorScalarWhereInput = {
-  AND?: Prisma.DoctorScalarWhereInput | Prisma.DoctorScalarWhereInput[]
-  OR?: Prisma.DoctorScalarWhereInput[]
-  NOT?: Prisma.DoctorScalarWhereInput | Prisma.DoctorScalarWhereInput[]
-  id?: Prisma.StringFilter<"Doctor"> | string
-  fullName?: Prisma.StringFilter<"Doctor"> | string
-  email?: Prisma.StringFilter<"Doctor"> | string
-  phone?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  password?: Prisma.StringFilter<"Doctor"> | string
-  specializationId?: Prisma.StringFilter<"Doctor"> | string
-  bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  experience?: Prisma.IntNullableFilter<"Doctor"> | number | null
-  consultationFee?: Prisma.FloatNullableFilter<"Doctor"> | number | null
-  image?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  isAvailable?: Prisma.BoolFilter<"Doctor"> | boolean
-  rating?: Prisma.FloatNullableFilter<"Doctor"> | number | null
-  location?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
 }
 
 export type DoctorCreateWithoutSchedulesInput = {
@@ -881,6 +796,91 @@ export type DoctorUncheckedUpdateWithoutSchedulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
+}
+
+export type DoctorCreateWithoutSpecializationInput = {
+  id?: string
+  fullName: string
+  email: string
+  phone?: string | null
+  password: string
+  bio?: string | null
+  experience?: number | null
+  consultationFee?: number | null
+  image?: string | null
+  isAvailable?: boolean
+  rating?: number | null
+  location?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDoctorInput
+  schedules?: Prisma.ScheduleCreateNestedManyWithoutDoctorInput
+}
+
+export type DoctorUncheckedCreateWithoutSpecializationInput = {
+  id?: string
+  fullName: string
+  email: string
+  phone?: string | null
+  password: string
+  bio?: string | null
+  experience?: number | null
+  consultationFee?: number | null
+  image?: string | null
+  isAvailable?: boolean
+  rating?: number | null
+  location?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
+  schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutDoctorInput
+}
+
+export type DoctorCreateOrConnectWithoutSpecializationInput = {
+  where: Prisma.DoctorWhereUniqueInput
+  create: Prisma.XOR<Prisma.DoctorCreateWithoutSpecializationInput, Prisma.DoctorUncheckedCreateWithoutSpecializationInput>
+}
+
+export type DoctorCreateManySpecializationInputEnvelope = {
+  data: Prisma.DoctorCreateManySpecializationInput | Prisma.DoctorCreateManySpecializationInput[]
+  skipDuplicates?: boolean
+}
+
+export type DoctorUpsertWithWhereUniqueWithoutSpecializationInput = {
+  where: Prisma.DoctorWhereUniqueInput
+  update: Prisma.XOR<Prisma.DoctorUpdateWithoutSpecializationInput, Prisma.DoctorUncheckedUpdateWithoutSpecializationInput>
+  create: Prisma.XOR<Prisma.DoctorCreateWithoutSpecializationInput, Prisma.DoctorUncheckedCreateWithoutSpecializationInput>
+}
+
+export type DoctorUpdateWithWhereUniqueWithoutSpecializationInput = {
+  where: Prisma.DoctorWhereUniqueInput
+  data: Prisma.XOR<Prisma.DoctorUpdateWithoutSpecializationInput, Prisma.DoctorUncheckedUpdateWithoutSpecializationInput>
+}
+
+export type DoctorUpdateManyWithWhereWithoutSpecializationInput = {
+  where: Prisma.DoctorScalarWhereInput
+  data: Prisma.XOR<Prisma.DoctorUpdateManyMutationInput, Prisma.DoctorUncheckedUpdateManyWithoutSpecializationInput>
+}
+
+export type DoctorScalarWhereInput = {
+  AND?: Prisma.DoctorScalarWhereInput | Prisma.DoctorScalarWhereInput[]
+  OR?: Prisma.DoctorScalarWhereInput[]
+  NOT?: Prisma.DoctorScalarWhereInput | Prisma.DoctorScalarWhereInput[]
+  id?: Prisma.StringFilter<"Doctor"> | string
+  fullName?: Prisma.StringFilter<"Doctor"> | string
+  email?: Prisma.StringFilter<"Doctor"> | string
+  phone?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  password?: Prisma.StringFilter<"Doctor"> | string
+  specializationId?: Prisma.StringFilter<"Doctor"> | string
+  bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  experience?: Prisma.IntNullableFilter<"Doctor"> | number | null
+  consultationFee?: Prisma.FloatNullableFilter<"Doctor"> | number | null
+  image?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  isAvailable?: Prisma.BoolFilter<"Doctor"> | boolean
+  rating?: Prisma.FloatNullableFilter<"Doctor"> | number | null
+  location?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
 }
 
 export type DoctorCreateWithoutAppointmentsInput = {

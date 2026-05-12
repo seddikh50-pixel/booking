@@ -78,7 +78,6 @@ const AddDoctor = ({ specialties }: Props) => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        console.log({ name: e.target.name })
         const selectedFile = (e.target as HTMLInputElement).files?.[0];
         if (selectedFile) {
             const image = URL.createObjectURL(selectedFile)
@@ -100,7 +99,6 @@ const AddDoctor = ({ specialties }: Props) => {
 
         e.preventDefault();
         try {
-            console.log(formData)
             const form = new FormData();
             Object.entries(formData).map(([key, value]) =>
 
@@ -312,10 +310,10 @@ const AddDoctor = ({ specialties }: Props) => {
 
                         {/* الموقع */}
                         <div className='mb-5'>
-                                        
-                                  <Field>
+
+                            <Field>
                                 <FieldLabel htmlFor="location">
-                                 العنوان
+                                    العنوان
                                 </FieldLabel>
                                 <Input
                                     onChange={handleChange}

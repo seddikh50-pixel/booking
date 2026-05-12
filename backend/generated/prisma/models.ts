@@ -10,7 +10,7 @@
  */
 export type * from './models/Patient.ts'
 export type * from './models/Doctor.ts'
-export type * from './models/Specialties.ts'
 export type * from './models/Schedule.ts'
+export type * from './models/Specialties.ts'
 export type * from './models/Appointment.ts'
 export type * from './commonInputTypes.ts'

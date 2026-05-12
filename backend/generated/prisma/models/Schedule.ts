@@ -37,25 +37,34 @@ export type ScheduleSumAggregateOutputType = {
 export type ScheduleMinAggregateOutputType = {
   id: string | null
   dayOfWeek: number | null
-  startTime: string | null
-  endTime: string | null
+  morningStart: string | null
+  morningEnd: string | null
+  eveningStart: string | null
+  eveningEnd: string | null
   doctorId: string | null
+  createdAt: Date | null
 }
 
 export type ScheduleMaxAggregateOutputType = {
   id: string | null
   dayOfWeek: number | null
-  startTime: string | null
-  endTime: string | null
+  morningStart: string | null
+  morningEnd: string | null
+  eveningStart: string | null
+  eveningEnd: string | null
   doctorId: string | null
+  createdAt: Date | null
 }
 
 export type ScheduleCountAggregateOutputType = {
   id: number
   dayOfWeek: number
-  startTime: number
-  endTime: number
+  morningStart: number
+  morningEnd: number
+  eveningStart: number
+  eveningEnd: number
   doctorId: number
+  createdAt: number
   _all: number
 }
 
@@ -71,25 +80,34 @@ export type ScheduleSumAggregateInputType = {
 export type ScheduleMinAggregateInputType = {
   id?: true
   dayOfWeek?: true
-  startTime?: true
-  endTime?: true
+  morningStart?: true
+  morningEnd?: true
+  eveningStart?: true
+  eveningEnd?: true
   doctorId?: true
+  createdAt?: true
 }
 
 export type ScheduleMaxAggregateInputType = {
   id?: true
   dayOfWeek?: true
-  startTime?: true
-  endTime?: true
+  morningStart?: true
+  morningEnd?: true
+  eveningStart?: true
+  eveningEnd?: true
   doctorId?: true
+  createdAt?: true
 }
 
 export type ScheduleCountAggregateInputType = {
   id?: true
   dayOfWeek?: true
-  startTime?: true
-  endTime?: true
+  morningStart?: true
+  morningEnd?: true
+  eveningStart?: true
+  eveningEnd?: true
   doctorId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -182,9 +200,12 @@ export type ScheduleGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type ScheduleGroupByOutputType = {
   id: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart: string | null
+  morningEnd: string | null
+  eveningStart: string | null
+  eveningEnd: string | null
   doctorId: string
+  createdAt: Date
   _count: ScheduleCountAggregateOutputType | null
   _avg: ScheduleAvgAggregateOutputType | null
   _sum: ScheduleSumAggregateOutputType | null
@@ -213,18 +234,24 @@ export type ScheduleWhereInput = {
   NOT?: Prisma.ScheduleWhereInput | Prisma.ScheduleWhereInput[]
   id?: Prisma.StringFilter<"Schedule"> | string
   dayOfWeek?: Prisma.IntFilter<"Schedule"> | number
-  startTime?: Prisma.StringFilter<"Schedule"> | string
-  endTime?: Prisma.StringFilter<"Schedule"> | string
+  morningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  morningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
   doctorId?: Prisma.StringFilter<"Schedule"> | string
+  createdAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
   doctor?: Prisma.XOR<Prisma.DoctorScalarRelationFilter, Prisma.DoctorWhereInput>
 }
 
 export type ScheduleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   dayOfWeek?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  morningStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  morningEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  eveningStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  eveningEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   doctorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   doctor?: Prisma.DoctorOrderByWithRelationInput
 }
 
@@ -234,18 +261,24 @@ export type ScheduleWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ScheduleWhereInput[]
   NOT?: Prisma.ScheduleWhereInput | Prisma.ScheduleWhereInput[]
   dayOfWeek?: Prisma.IntFilter<"Schedule"> | number
-  startTime?: Prisma.StringFilter<"Schedule"> | string
-  endTime?: Prisma.StringFilter<"Schedule"> | string
+  morningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  morningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
   doctorId?: Prisma.StringFilter<"Schedule"> | string
+  createdAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
   doctor?: Prisma.XOR<Prisma.DoctorScalarRelationFilter, Prisma.DoctorWhereInput>
 }, "id">
 
 export type ScheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   dayOfWeek?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  morningStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  morningEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  eveningStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  eveningEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   doctorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.ScheduleCountOrderByAggregateInput
   _avg?: Prisma.ScheduleAvgOrderByAggregateInput
   _max?: Prisma.ScheduleMaxOrderByAggregateInput
@@ -259,64 +292,88 @@ export type ScheduleScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ScheduleScalarWhereWithAggregatesInput | Prisma.ScheduleScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   dayOfWeek?: Prisma.IntWithAggregatesFilter<"Schedule"> | number
-  startTime?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
-  endTime?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
+  morningStart?: Prisma.StringNullableWithAggregatesFilter<"Schedule"> | string | null
+  morningEnd?: Prisma.StringNullableWithAggregatesFilter<"Schedule"> | string | null
+  eveningStart?: Prisma.StringNullableWithAggregatesFilter<"Schedule"> | string | null
+  eveningEnd?: Prisma.StringNullableWithAggregatesFilter<"Schedule"> | string | null
   doctorId?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Schedule"> | Date | string
 }
 
 export type ScheduleCreateInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
+  createdAt?: Date | string
   doctor: Prisma.DoctorCreateNestedOneWithoutSchedulesInput
 }
 
 export type ScheduleUncheckedCreateInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
   doctorId: string
+  createdAt?: Date | string
 }
 
 export type ScheduleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   doctor?: Prisma.DoctorUpdateOneRequiredWithoutSchedulesNestedInput
 }
 
 export type ScheduleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ScheduleCreateManyInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
   doctorId: string
+  createdAt?: Date | string
 }
 
 export type ScheduleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ScheduleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ScheduleListRelationFilter = {
@@ -332,9 +389,12 @@ export type ScheduleOrderByRelationAggregateInput = {
 export type ScheduleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   dayOfWeek?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  morningStart?: Prisma.SortOrder
+  morningEnd?: Prisma.SortOrder
+  eveningStart?: Prisma.SortOrder
+  eveningEnd?: Prisma.SortOrder
   doctorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ScheduleAvgOrderByAggregateInput = {
@@ -344,17 +404,23 @@ export type ScheduleAvgOrderByAggregateInput = {
 export type ScheduleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   dayOfWeek?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  morningStart?: Prisma.SortOrder
+  morningEnd?: Prisma.SortOrder
+  eveningStart?: Prisma.SortOrder
+  eveningEnd?: Prisma.SortOrder
   doctorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ScheduleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   dayOfWeek?: Prisma.SortOrder
-  startTime?: Prisma.SortOrder
-  endTime?: Prisma.SortOrder
+  morningStart?: Prisma.SortOrder
+  morningEnd?: Prisma.SortOrder
+  eveningStart?: Prisma.SortOrder
+  eveningEnd?: Prisma.SortOrder
   doctorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ScheduleSumOrderByAggregateInput = {
@@ -414,15 +480,21 @@ export type IntFieldUpdateOperationsInput = {
 export type ScheduleCreateWithoutDoctorInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
+  createdAt?: Date | string
 }
 
 export type ScheduleUncheckedCreateWithoutDoctorInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
+  createdAt?: Date | string
 }
 
 export type ScheduleCreateOrConnectWithoutDoctorInput = {
@@ -457,37 +529,52 @@ export type ScheduleScalarWhereInput = {
   NOT?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
   id?: Prisma.StringFilter<"Schedule"> | string
   dayOfWeek?: Prisma.IntFilter<"Schedule"> | number
-  startTime?: Prisma.StringFilter<"Schedule"> | string
-  endTime?: Prisma.StringFilter<"Schedule"> | string
+  morningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  morningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningStart?: Prisma.StringNullableFilter<"Schedule"> | string | null
+  eveningEnd?: Prisma.StringNullableFilter<"Schedule"> | string | null
   doctorId?: Prisma.StringFilter<"Schedule"> | string
+  createdAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
 }
 
 export type ScheduleCreateManyDoctorInput = {
   id?: string
   dayOfWeek: number
-  startTime: string
-  endTime: string
+  morningStart?: string | null
+  morningEnd?: string | null
+  eveningStart?: string | null
+  eveningEnd?: string | null
+  createdAt?: Date | string
 }
 
 export type ScheduleUpdateWithoutDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ScheduleUncheckedUpdateWithoutDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ScheduleUncheckedUpdateManyWithoutDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   dayOfWeek?: Prisma.IntFieldUpdateOperationsInput | number
-  startTime?: Prisma.StringFieldUpdateOperationsInput | string
-  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  morningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  morningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eveningEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -495,39 +582,51 @@ export type ScheduleUncheckedUpdateManyWithoutDoctorInput = {
 export type ScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   dayOfWeek?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  morningStart?: boolean
+  morningEnd?: boolean
+  eveningStart?: boolean
+  eveningEnd?: boolean
   doctorId?: boolean
+  createdAt?: boolean
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
 
 export type ScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   dayOfWeek?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  morningStart?: boolean
+  morningEnd?: boolean
+  eveningStart?: boolean
+  eveningEnd?: boolean
   doctorId?: boolean
+  createdAt?: boolean
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
 
 export type ScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   dayOfWeek?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  morningStart?: boolean
+  morningEnd?: boolean
+  eveningStart?: boolean
+  eveningEnd?: boolean
   doctorId?: boolean
+  createdAt?: boolean
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
 
 export type ScheduleSelectScalar = {
   id?: boolean
   dayOfWeek?: boolean
-  startTime?: boolean
-  endTime?: boolean
+  morningStart?: boolean
+  morningEnd?: boolean
+  eveningStart?: boolean
+  eveningEnd?: boolean
   doctorId?: boolean
+  createdAt?: boolean
 }
 
-export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dayOfWeek" | "startTime" | "endTime" | "doctorId", ExtArgs["result"]["schedule"]>
+export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dayOfWeek" | "morningStart" | "morningEnd" | "eveningStart" | "eveningEnd" | "doctorId" | "createdAt", ExtArgs["result"]["schedule"]>
 export type ScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
 }
@@ -546,9 +645,12 @@ export type $SchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     dayOfWeek: number
-    startTime: string
-    endTime: string
+    morningStart: string | null
+    morningEnd: string | null
+    eveningStart: string | null
+    eveningEnd: string | null
     doctorId: string
+    createdAt: Date
   }, ExtArgs["result"]["schedule"]>
   composites: {}
 }
@@ -975,9 +1077,12 @@ export interface Prisma__ScheduleClient<T, Null = never, ExtArgs extends runtime
 export interface ScheduleFieldRefs {
   readonly id: Prisma.FieldRef<"Schedule", 'String'>
   readonly dayOfWeek: Prisma.FieldRef<"Schedule", 'Int'>
-  readonly startTime: Prisma.FieldRef<"Schedule", 'String'>
-  readonly endTime: Prisma.FieldRef<"Schedule", 'String'>
+  readonly morningStart: Prisma.FieldRef<"Schedule", 'String'>
+  readonly morningEnd: Prisma.FieldRef<"Schedule", 'String'>
+  readonly eveningStart: Prisma.FieldRef<"Schedule", 'String'>
+  readonly eveningEnd: Prisma.FieldRef<"Schedule", 'String'>
   readonly doctorId: Prisma.FieldRef<"Schedule", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Schedule", 'DateTime'>
 }
     
 
