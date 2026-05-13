@@ -112,13 +112,12 @@ const Doctors = ({ doctors }: Props) => {
     return (
         <div className='mt-10'>
 
-            <Table className=''>
+            <Table className='overflow-hidden'>
                 <TableCaption>قائمة الأطباء</TableCaption>
                 <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[100px] text-right">الصورة</TableHead>
-
-                        <TableHead className="text-right w-[100px]">الاسم</TableHead>
+                    <TableRow className=''>
+                        <TableHead className="w-[50px] text-right">الصورة</TableHead>
+                        <TableHead className=" text-right w-[100px]">الاسم</TableHead>
                         <TableHead className='text-right w-[100px]'>التخصص</TableHead>
                         <TableHead className="text-right w-[100px]">سنوات الخبرة </TableHead>
                         <TableHead className="text-right w-[100px]">المكان</TableHead>

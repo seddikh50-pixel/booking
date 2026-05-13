@@ -21,6 +21,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { ChevronDownIcon } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { useBookingStore } from 'app/(main)/store/bookingStore';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -59,22 +60,14 @@ type Schedule = {
 };
 
 const AddSchedule = ({ doctors }: Props) => {
-  const [selectedDays, setSelectedDays] = useState<number[]>([]);
-  const [doctor, setDoctor] = useState<string>("");
-  const [morningStartTime, setMorningStartTime] = useState<string>("");
-  const [morningEndTime, setMorningEndTime] = useState<string>("");
-  const [eveningStartTime, setEveningStartTime] = useState<string>("");
-  const [eveningEndTime, setEveningEndTime] = useState<string>("");
-  const [date, setDate] = useState<Date | undefined>(undefined);
-  const [day, setDay] = useState<string>("");
-  const [objSchedule, setObjSchedule] = useState<Schedule>({
-    dayOfWeek: "0",
-    morningStart: "08:00",
-    morningEnd: "12:00",
-    eveningStart: "14:00",
-    eveningEnd: "17:00",
-  });
-  const [schedules, setSchedules] = useState<Schedule[]>([]);
+
+  const updateField = useBookingStore(s => s.updateObjScheduleField)
+  const objSchedule = useBookingStore(b => b.objSchedule)
+  const schedules = useBookingStore(s => s.schedules)
+  const dailySchedule = useBookingStore(s => s.dailySchedule)
+  const setDoctorId = useBookingStore(d => d.setDoctorId)
+  const doctorId = useBookingStore(d => d.doctorId)
+
 
 
   const days = [
@@ -92,11 +85,6 @@ const AddSchedule = ({ doctors }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    console.log(schedules)
-    console.log(doctor)
-
-
     try {
 
 
@@ -107,11 +95,12 @@ const AddSchedule = ({ doctors }: Props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          doctorId: doctor,
+          doctorId: doctorId,
           schedules
         }),
       });
       const data = await res.json()
+      console.log(schedules)
       console.log(data)
     } catch (error) {
 
@@ -124,48 +113,15 @@ const AddSchedule = ({ doctors }: Props) => {
 
 
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setObjSchedule((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value.slice(0, 5),
-    }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    updateField(e.target.name as keyof Schedule, e.target.value)
   };
 
-  const dailySchedule = () => {
-    setSchedules((prev) =>
-      !prev.find((s) => s.dayOfWeek === objSchedule.dayOfWeek)
-        ? [...prev, objSchedule]
-
-        : prev
-    );
-  };
-
-
-  useEffect(() => {
-
-    console.log(schedules)
-  }, [schedules]);
 
 
 
   return (
     <div>
-      {/* <div>
-        <Calendar
-          selected={date}
-          mode="single"
-          // selected={date}
-          // onSelect={setDate}
-          onSelect={handleDateChange}
-
-          className="rounded-lg border"
-          captionLayout="dropdown"
-        />
-      </div> */}
       <div>
         <p className='text-2xl font-bold p-5'>إضافة جدول عمل أسبوعي</p>
         <form action="" onSubmit={handleSubmit}>
@@ -200,11 +156,6 @@ const AddSchedule = ({ doctors }: Props) => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              {/* {days.map((day) =>
-                <div key={day.numOfDay}>
-                  <button type='button' name='dayOfWeek' className={`${selectedDays.includes(day.numOfDay) ? 'bg-primary' : "bg-white"} w-30 border-2 cursor-pointer rounded-sm text-xl`} onClick={() => handleDaySelect(day.numOfDay)} >{day.day} </button>
-                </div>
-              )} */}
             </div>
 
 
@@ -288,16 +239,7 @@ const AddSchedule = ({ doctors }: Props) => {
             <Select dir='rtl'
               name='doctor'
               onValueChange={(value) =>
-                setDoctor(value)
-
-                // handleChange(
-                //   {
-                //     target: {
-                //       name: "doctor",
-                //       value
-                //     }
-                //   } as React.ChangeEvent<HTMLInputElement>
-                // )
+                setDoctorId(value)
               }
             >
               <SelectTrigger className="w-full max-w-48">
@@ -306,8 +248,6 @@ const AddSchedule = ({ doctors }: Props) => {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>الأطباء</SelectLabel>
-
-
                   {doctors.map((sp) => {
                     return (
                       <SelectItem key={sp.id} value={sp.id}>{sp.fullName} </SelectItem>

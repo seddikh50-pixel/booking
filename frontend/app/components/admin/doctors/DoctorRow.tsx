@@ -60,7 +60,7 @@ const DoctorRow = ({ doc, deleteDoctor, changeStatus }: Props) => {
     return (
       
             <TableRow  className=''>
-                <TableCell className="font-medium "><Image width={70} height={50} alt='' src={doc.image} /></TableCell>
+                <TableCell className="font-medium  h-20 w-10  relative "><Image  className='object-cover' fill alt='' src={doc.image} /></TableCell>
                 <TableCell className="font-medium">{doc.fullName}</TableCell>
                 <TableCell>{doc.specialization.name} </TableCell>
                 <TableCell>{doc.experience} </TableCell>
