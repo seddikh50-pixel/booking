@@ -23,6 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { Spinner } from '@/components/ui/spinner'
 
 
 
@@ -60,6 +61,7 @@ type Props = {
 const AddDoctor = ({ specialties }: Props) => {
 
     const [file, setFile] = useState<File | null>(null)
+    const [loading , setLoading] = useState<boolean>(false)
 
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
@@ -96,8 +98,8 @@ const AddDoctor = ({ specialties }: Props) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true)
 
-        e.preventDefault();
         try {
             const form = new FormData();
             Object.entries(formData).map(([key, value]) =>
@@ -126,6 +128,8 @@ const AddDoctor = ({ specialties }: Props) => {
 
         } catch (error) {
             console.log(error)
+        }finally{
+            setLoading(false)
         }
 
     }
@@ -369,9 +373,10 @@ const AddDoctor = ({ specialties }: Props) => {
                 </div>
                 <button
                     type="submit"
-                    className="bg-green-600 text-white py-2 px-4 rounded-lg w-full cursor-pointer"
+                    className="bg-green-600 text-white py-2 px-4 rounded-lg w-full cursor-pointer max-w-96 flex justify-center items-center"
                 >
-                    إضافة طبيب
+
+                   {!loading ? " إضافة طبيب" : <div className='flex justify-center items-center gap-3'><Spinner /> جاري اضافة طبيب ...</div>}  
                 </button>
 
             </form>

@@ -1,4 +1,5 @@
 import Container from 'app/components/Container'
+import AvailalbleSchedules from 'app/components/schedules/AvailalbleSchedules'
 import { getDoctors } from 'lib/cachedFetcher'
 import { OctagonAlert } from 'lucide-react'
 import Image from 'next/image'
@@ -35,11 +36,11 @@ interface Doctors {
 }
 
 const page = async ({ params }: Prop) => {
-  console.log(await params)
+
+
   const { id } = await params
   const doctors = await getDoctors()
   const doctorDetails = doctors.find((doc: Doctors) => id === doc.id)
-  console.log(doctorDetails)
   return (
     <div className='p-5'>
       <Container className='flex flex-col gap-10  '>
@@ -74,11 +75,12 @@ const page = async ({ params }: Prop) => {
         <div>
           <h1 className='text-lg text-gray-600 font-bold'>مواعيد الحجز</h1>
           <div>
-            
+            <AvailalbleSchedules schedules={doctorDetails.schedules}  /> 
+
           </div>
         </div>
 
-        
+
       </Container>
 
     </div>

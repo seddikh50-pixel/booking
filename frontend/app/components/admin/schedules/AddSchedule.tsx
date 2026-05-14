@@ -100,7 +100,6 @@ const AddSchedule = ({ doctors }: Props) => {
         }),
       });
       const data = await res.json()
-      console.log(schedules)
       console.log(data)
     } catch (error) {
 

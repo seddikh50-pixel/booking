@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { create } from 'zustand'
 type Schedule = {
     dayOfWeek: string;
@@ -38,14 +39,15 @@ export const useBookingStore = create<BookingState>((set) => ({
         })),
     dailySchedule: () => set((state) => {
         const exist = state.schedules.some((s) => s.dayOfWeek === state.objSchedule.dayOfWeek)
-        if (exist) return state
+        if (exist){
+            toast.error('لقد اضفت هذا اليوم ')
+            return state
+        }
         console.log(state)
         return {
             schedules: [...state.schedules, { ...state.objSchedule }]
 
         }
-      
-
     }),
     setDoctorId: (id) => set({ doctorId: id })
 

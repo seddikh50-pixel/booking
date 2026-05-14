@@ -6,7 +6,6 @@ import express from "express";
 
 export const addSchedule = asyncWrapper(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { doctorId, schedules } = req.body
-    console.log(schedules.length)
     if (!schedules.length) {
         const error = new AppError("يرجى اضافة برنامج", 404, false);
         return next(error)
@@ -17,7 +16,7 @@ export const addSchedule = asyncWrapper(async (req: express.Request, res: expres
         }
     })
     if (!existingDoctor) {
-        const error = new AppError("يرى اختيار الطبيب ", 404, false);
+        const error = new AppError("يرجى اختيار الطبيب ", 404, false);
         return next(error)
     }
     const existingDoctorSchedule = await prisma.schedule.findFirst({
