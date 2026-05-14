@@ -1,14 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-type Schedule = {
-    dayOfWeek: number
-    doctorId: string
-    eveningEnd: string
-    eveningStart: string
-    morningEnd: string
-    morningStart: string
-}
+
 
 interface SchedulesProps {
     schedules: Schedule[]
@@ -23,8 +16,50 @@ type DayItem = {
     dayOfWeek: number
 }
 
-const AvailalbleSchedules = ({ schedules }: SchedulesProps) => {
-    console.log(schedules)
+
+type Schedule = {
+  id: string;
+  dayOfWeek: number;
+  morningStart: string;
+  morningEnd: string;
+  eveningStart: string;
+  eveningEnd: string;
+};
+
+type Specialization = {
+  id: string;
+  name: string;
+  image: string;
+};
+
+export type Doctor = {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  bio: string;
+  image: string;
+  location: string;
+  experience: number;
+  consultationFee: number;
+  isAvailable: boolean;
+  rating: number | null;
+
+  specializationId: string;
+  specialization: Specialization;
+
+  schedules: Schedule[];
+
+};
+
+type Props = {
+  doctorDetails: Doctor;
+};
+
+
+
+const AvailalbleSchedules = ({ doctorDetails }: Props) => {
 
 
 
@@ -52,7 +87,6 @@ const AvailalbleSchedules = ({ schedules }: SchedulesProps) => {
                 loopDays.push({ dayOfMonth: today.getDate(), dayOfWeek: today.getDay() })
             }
             setNextSevenDays(loopDays)
-            console.log(loopDays)
 
         }
         getSevenDays()
@@ -65,7 +99,7 @@ const AvailalbleSchedules = ({ schedules }: SchedulesProps) => {
     return (
         <div className='flex gap-2 mt-5'>
             {nextSevenDays.map((sc, index) =>
-                schedules.some((item) => item.dayOfWeek === sc.dayOfWeek) ?
+                doctorDetails.schedules.some((item) => item.dayOfWeek === sc.dayOfWeek) ?
                     <button onClick={() => setIndexDay(sc.dayOfWeek)} className={`w-18 h-25 cursor-pointer transition-all duration-300  font-bold flex justify-center items-center flex-col px-3 border-gray-300 rounded-full text-xs space-y-2 border-2 ${indexDay === sc.dayOfWeek ? "bg-primary text-white " : "bg-white text-gray-800"}`} key={index}> <h1>{days[sc.dayOfWeek]?.day} </h1> <h1 className='text-lg'>{sc.dayOfMonth} </h1> </button>
                     : <button disabled className={`w-15 h-20 pointer-events-none  font-bold flex justify-center items-center flex-col px-3 border rounded-full text-xs space-y-2  text-gray-800/20`} key={index}> <h1>{days[sc.dayOfWeek]?.day} </h1> <h1>{sc.dayOfMonth} </h1> </button>
             )}
